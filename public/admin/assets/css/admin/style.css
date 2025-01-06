@@ -1,0 +1,17 @@
+.form-control:focus {
+    border-color: hsl(152, 69%, 31%);
+    /* Warna biru default */
+    box-shadow: 0 0 0 0.25rem hsla(152, 69%, 31%, 0.5);;
+    /* Efek bayangan biru */
+}
+
+.sidebar-ul a{
+    color: black;
+}
+/* .sidebar-ul{
+    text-decoration: none;
+} */
+
+.nav-link.active.bg-active {
+    background-color: #31676b;
+}
