@@ -12,16 +12,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (!empty($showBasicLaws))
-                            @foreach ($showBasicLaws as $index => $basicLaw)
+                        @if (!$files->count() == 0)
+                            @foreach ($files as $index => $file)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td><a href="{{ $basicLaw['url'] }}">{{ $basicLaw['name'] }}</a></td>
+                                    <td><a href="{{ $file['file_url'] }}">{{ $file['name'] }}</a></td>
+                                    {{-- <td>{{ $file['category'] }}</td> --}}
                                 </tr>
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="2" class="text-center">Tidak ada data</td>
+                                <td colspan="2" class="text-center">Tidak ada file</td>
                             </tr>
                         @endif
                     </tbody>

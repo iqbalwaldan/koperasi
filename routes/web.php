@@ -45,8 +45,10 @@ Route::get('/regulasi/{slug}', [RegulationController::class, 'index']);
 
 // Service
 Route::get('/layanan-publik', [PublicServiceController::class, 'index']);
-Route::get('/layanan-publik/bidang-perdagangan', [PublicServiceController::class, 'tradeSector']);
-Route::get('/layanan-publik/bidang-pemberdayaan-koperasi-dan-usaha-mikro', [PublicServiceController::class, 'umkm']);
+// Route::get('/layanan-publik/bidang-perdagangan', [PublicServiceController::class, 'tradeSector']);
+// Route::get('/layanan-publik/bidang-pemberdayaan-koperasi-dan-usaha-mikro', [PublicServiceController::class, 'umkm']);
+Route::get('/layanan-publik/{slug}', [PublicServiceController::class, 'serviceDetail'])->name('service-detail');
+
 
 Route::group(['prefix' => 'admin'], function () {
     Route::middleware('guest')->group(function () {
@@ -69,8 +71,25 @@ Route::group(['prefix' => 'admin'], function () {
         Route::delete('/kegiatan/{id}', [ManageController::class, 'activityDestroy'])->name('admin.manage-activity.destroy');
 
         Route::get('/galeri', [ManageController::class, 'gallery'])->name('admin.manage-gallery.index');
-        Route::get('/data', [ManageController::class, 'data'])->name('admin.manage-data.index');
-        Route::get('/data', [ManageController::class, 'data'])->name('admin.manage-data.index');
+        Route::get('/galeri/tambah', [ManageController::class, 'galleryCreate'])->name('admin.manage-gallery.create');
+        Route::post('/galeri', [ManageController::class, 'galleryStore'])->name('admin.manage-gallery.store');
+        Route::get('/galeri/{slug}', [ManageController::class, 'galleryEdit'])->name('admin.manage-gallery.edit');
+        Route::put('/galeri/{slug}', [ManageController::class, 'galleryUpdate'])->name('admin.manage-gallery.update');
+        Route::delete('/galeri/{id}', [ManageController::class, 'galleryDestroy'])->name('admin.manage-gallery.destroy');
+
+        Route::get('/data/{slug}', [ManageController::class, 'data'])->name('admin.manage-data.index');
+        Route::get('/data/tambah/{slug}', [ManageController::class, 'dataCreate'])->name('admin.manage-data.create');
+        Route::post('/data/store', [ManageController::class, 'dataStore'])->name('admin.manage-data.store');
+        Route::get('/data/edit/{id}', [ManageController::class, 'dataEdit'])->name('admin.manage-data.edit');
+        Route::put('/data/{id}', [ManageController::class, 'dataUpdate'])->name('admin.manage-data.update');
+        Route::delete('/data/{id}', [ManageController::class, 'dataDestroy'])->name('admin.manage-data.destroy');
+        
+        Route::get('/profil/edit/{slug}', [ManageController::class, 'profileEdit'])->name('admin.manage-profile.edit');
+        Route::put('/profil/{slug}', [ManageController::class, 'profileUpdate'])->name('admin.manage-profile.update');
+        
+        Route::get('/pengaturan', [ManageController::class, 'settingEdit'])->name('admin.manage-setting.edit');
+        Route::put('/pengaturan', [ManageController::class, 'settingUpdate'])->name('admin.manage-setting.update');
+
         Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });
 });

@@ -805,6 +805,9 @@
 .sidebar-wrapper .menu .sidebar-link:hover {
     background-color: rgb(25, 135, 84);
 }
+.sidebar-wrapper .menu .danger.sidebar-link:hover {
+    background-color: hsl(0, 100%, 32%);
+}
 .sidebar-wrapper .menu .sidebar-item {
     list-style: none;
     margin-top: 0.5rem;

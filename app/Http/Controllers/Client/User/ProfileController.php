@@ -34,31 +34,9 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function regulationsLegalBasis()
-    {
-        $regulationsLegalBasisTag = ProfileTag::where('slug', 'regulasi-dan-dasar-hukum')->first();
-        $regulationsLegalBasis = ProfileDetail::where('id', $regulationsLegalBasisTag->id)->first();
-
-        return view('user.profile.regulations-legal-basis.index', [
-            'title' => 'Regulasi dan Dasar Hukum',
-            'regulationsLegalBasis' => $regulationsLegalBasis
-        ]);
-    }
-
-    // public function ministryHistory()
-    // {
-    //     $historyTag = ProfileTag::where('slug', 'sejarah')->first();
-    //     $history = ProfileDetail::where('id', $historyTag->id)->first();
-
-    //     return view('user.profile.ministry-history.index', [
-    //         'title' => 'Sejarah',
-    //         'history' => $history
-    //     ]);
-    // }
-
     public function dutiesFunctions()
     {
-        $dutiesFunctionsTag = ProfileTag::where('slug', 'tugas-dan-fungsi')->first();
+        $dutiesFunctionsTag = ProfileTag::where('slug', 'regulasi-tugas-dan-fungsi')->first();
         $dutiesFunctions = ProfileDetail::where('id', $dutiesFunctionsTag->id)->first();
 
         return view('user.profile.duties-functions.index', [

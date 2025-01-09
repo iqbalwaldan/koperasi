@@ -10,6 +10,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+
         $flashNewses = NewsDetail::with('newsTag')
             ->orderBy('date_news', 'desc')
             ->take(10)
@@ -61,7 +62,7 @@ class DashboardController extends Controller
             'title_list_article_1' => 'Siaran Pers',
             'list_article_1' => $pressReleases,
             'title_list_article_2' => 'Kegiatan',
-            'list_article_2' => $activity
+            'list_article_2' => $activity,
         ]);
     }
 }

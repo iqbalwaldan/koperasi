@@ -47,7 +47,7 @@ document.addEventListener('click', (e) => {
 });
 
 document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('btn-delete-activity')) {
+    if (e.target.classList.contains('btn-delete-file')) {
         const itemId = e.target.dataset.id;
 
         Swal.fire({
@@ -61,7 +61,7 @@ document.addEventListener('click', (e) => {
             cancelButtonText: "Batal"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`/admin/kegiatan/${itemId}`, {
+                fetch(`/admin/data/${itemId}`, {
                     method: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
@@ -93,4 +93,3 @@ document.addEventListener('click', (e) => {
         });
     }
 });
-

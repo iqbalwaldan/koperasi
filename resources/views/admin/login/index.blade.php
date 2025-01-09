@@ -30,7 +30,7 @@
         <div class="card card-md shadow bg-light p-3 mx-3" style="width: 500px;">
             <div class="d-flex flex-column">
                 <figure class="d-flex justify-content-center px-3 py-2 w-100">
-                    <img src="{{ asset('assets/img/dinkop.png') }}" alt="logo" class="img-fluid">
+                    <img src="{{ asset('assets/img/Logo DISKOPUKMPERINDAG Kab. Sumenep.png') }}" alt="logo" class="img-fluid">
                 </figure>
                 <h1 class="text-center fw-bold pb-3">Login Admin</h1>
                 @if (session('error'))

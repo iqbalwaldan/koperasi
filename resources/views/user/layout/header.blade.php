@@ -3,7 +3,8 @@
         <div class="topbar__container">
             <figure class="topbar__logo">
                 <a href="/" class="d-flex">
-                    <img src="{{ asset('assets/img/dinkop.png') }}" alt="Logo Koperasi Indonesia">
+                    {{-- <img src="{{ $logo_utama }}" alt="Logo Koperasi Indonesia"> --}}
+                    <img src="{{ asset('assets/img/Logo DISKOPUKMPERINDAG Kab. Sumenep.png') }}" alt="Logo Koperasi Indonesia">
                 </a>
             </figure>
             <div class="topbar__menu">

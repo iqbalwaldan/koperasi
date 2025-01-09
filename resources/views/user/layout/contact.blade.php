@@ -4,7 +4,14 @@
 <button class="contact" onclick="toggleContactList()">
     <img src="../assets/img/phone-call-dark.png" alt="">
     <div class="contact__list hidden">
-        <a href="https://wa.me/+6289518436207" class="card">
+        @foreach ($datas as $data)
+            @if ($data['category_slug'] == 'contact-person')
+                <a href="https://wa.me/+62{{ substr($data['value'], 1) }}" class="card">
+                    <p class="m-0">{{ $data['key'] }}</p>
+                </a>
+            @endif
+        @endforeach
+        {{-- <a href="https://wa.me/+6289518436207" class="card">
             <p class="m-0">Bindang Perizinan, Kelembagaan, Pengawasan, dan Pemeriksaan</p>
         </a>
         <a href="https://wa.me/+6289518436207" class="card">
@@ -21,7 +28,7 @@
         </a>
         <a href="https://wa.me/+6289518436207" class="card">
             <p class="m-0">UPTD Pasar</p>
-        </a>
+        </a> --}}
     </div>
 </button>
 <script>

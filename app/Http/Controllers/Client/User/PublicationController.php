@@ -35,23 +35,23 @@ class PublicationController extends Controller
         }
 
         $pressReleases = NewsDetail::where('news_tag_id', 1)
-            ->orderBy('date_news', 'desc')  
-            ->take(3)  
+            ->orderBy('date_news', 'desc')
+            ->take(3)
             ->get()
             ->map(function ($news) {
-                $news->description = strip_tags($news->description);  
-                $news->image_url = $news->getFirstMediaUrl('siaran-pers');  
+                $news->description = strip_tags($news->description);
+                $news->image_url = $news->getFirstMediaUrl('siaran-pers');
 
                 return $news;
             });
 
         $activity = NewsDetail::where('news_tag_id', 3)
-            ->orderBy('date_news', 'desc') 
+            ->orderBy('date_news', 'desc')
             ->take(3)
             ->get()
             ->map(function ($news) {
-                $news->description = strip_tags($news->description); 
-                $news->image_url = $news->getFirstMediaUrl('kegiatan'); 
+                $news->description = strip_tags($news->description);
+                $news->image_url = $news->getFirstMediaUrl('kegiatan');
 
                 return $news;
             });
@@ -68,19 +68,20 @@ class PublicationController extends Controller
 
     public function information()
     {
-        // $information = NewsDetail::where('news_tag_id', 2)->orderBy('date_news', 'DESC')->get()->map(function ($news) {
-        //     // Bersihkan tag HTML dari deskripsi
-        //     $news->description = strip_tags($news->description);
+        $tag = PublicationTag::where('slug', 'informasi')->first();
+        $informations = PublicationDetail::where('publication_tag_id', $tag->id)->orderBy('created_at', 'DESC')->first();
 
-        //     // Ambil URL dari media pertama dalam koleksi "siaran-pers"
-        //     $news->image_url = $news->getFirstMediaUrl('berita-media');
+        $informations->media = $informations->getMedia($informations->slug)->map(function ($media) use ($informations) {
+            return [
+                'name' => $media->name,
+                'file_url' => $media->getUrl(),
+                'category' => $informations->category
+            ];
+        });
 
-        //     return $news;
-        // });
-        $information = 1;
         return view('user.publication.information.index', [
             'title' => 'Informasi',
-            'informations' => $information
+            'informations' => $informations->media
         ]);
     }
 

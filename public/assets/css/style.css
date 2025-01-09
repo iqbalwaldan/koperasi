@@ -400,6 +400,8 @@ body {
     opacity: 0;
     visibility: hidden;
     /* transform: translate(10px); */
+    width: 350px;
+    text-align: right;
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
 }
 
@@ -1309,6 +1311,9 @@ figure {
         height: 100%;
         width: 100%;
         object-fit: cover;
+    }
+    .contact__list {
+        width: 500px;
     }
 }
 

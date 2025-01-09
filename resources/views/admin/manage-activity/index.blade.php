@@ -46,7 +46,7 @@
                                             <a id="test"
                                                 href="{{ route('admin.manage-activity.edit', $item['slug']) }}"
                                                 class="btn btn-primary">Edit</a>
-                                            <button class="btn btn-danger btn-delete-activity" data-id="{{ $item['id'] }}">
+                                            <button class="btn btn-danger btn-delete" data-id="{{ $item['id'] }}">
                                                 Hapus
                                             </button>
                                         </td>

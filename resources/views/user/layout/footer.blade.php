@@ -6,16 +6,28 @@
                     width="50px">
             </figure>
             <section class="footer__contact">
-                <h2 class="footer__h2">DINAS KOPERASI, USAHA KECIL DAN MENENGAH, PERINDUSTRIAN DAN PERDAGANGAN KABUPATEN SUMENEP</h2>
+                <h2 class="footer__h2">DINAS KOPERASI, USAHA KECIL DAN MENENGAH, PERINDUSTRIAN DAN PERDAGANGAN KABUPATEN
+                    SUMENEP</h2>
                 <div class="footer__div">
                     <i class="footer__icon fa-solid fa-location-dot"></i>
                     <p>
-                        Jl. Urip Sumoharjo No. 6 Sumenep
+                        {{-- Jl. Urip Sumoharjo No. 6 Sumenep --}}
+                        @foreach ($datas as $data)
+                            @if ($data['slug'] == 'alamat' && $data['category_slug'] == 'footer-contact')
+                                {{ $data['value'] }}
+                            @endif
+                        @endforeach
                     </p>
                 </div>
                 <div class="footer__div">
                     <i class="footer__icon fa-solid fa-phone"></i>
-                    <p>(0328) 662016</p>
+                    <p>
+                        @foreach ($datas as $data)
+                            @if ($data['slug'] == 'telepon' && $data['category_slug'] == 'footer-contact')
+                                {{ $data['value'] }}
+                            @endif
+                        @endforeach
+                    </p>
                 </div>
                 {{-- <div class="footer__div">
                     <i class="footer__icon fa-brands fa-whatsapp"></i>

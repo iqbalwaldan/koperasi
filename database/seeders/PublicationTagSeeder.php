@@ -21,6 +21,10 @@ class PublicationTagSeeder extends Seeder
                 'slug' => 'regulasi',
             ],
             [
+                'name' => 'Layanan',
+                'slug' => 'layanan',
+            ],
+            [
                 'name' => 'Informasi',
                 'slug' => 'informasi',
             ],

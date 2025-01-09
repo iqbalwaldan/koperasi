@@ -12,7 +12,9 @@
                             </figure>
                         </a>
                         <div class="figure__description">
-                            <p>{{ $photoGallery->date_news }}</p>
+                            <p>
+                                {{ date('d-m-Y', strtotime($photoGallery->date_news)) }}
+                            </p>
                             <a href="galeri-foto/{{ $photoGallery->slug }}">
                                 <h2>{{ $photoGallery->title }}</h2>
                             </a>

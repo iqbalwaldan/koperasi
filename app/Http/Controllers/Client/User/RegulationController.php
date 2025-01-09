@@ -11,9 +11,9 @@ class RegulationController extends Controller
 {
     public function index($slug)
     {
+        
         $showBasicLawTag = PublicationTag::where('slug', 'regulasi')->first();
-        $showBasicLawDetail = PublicationDetail::where('publication_tag_id', $showBasicLawTag->id)->first();
-        // get media name dan url
+        $showBasicLawDetail = PublicationDetail::where('publication_tag_id', $showBasicLawTag->id)->where('slug', $slug)->first();
         if (!$showBasicLawDetail || !$showBasicLawDetail->getMedia($slug)->count()) {
             $showBasicLawDetailFile = null;
         } else {

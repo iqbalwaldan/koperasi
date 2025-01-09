@@ -3,7 +3,7 @@
 @section('main')
     <main class="main">
         <section class="media__container mb-3">
-            <section class="card my-3 overflow-hidden rounded-0">
+            <section class="card my-3 p-3 overflow-hidden rounded-3">
                 <table class="publication__table">
                     <thead>
                         <tr>
@@ -13,18 +13,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @if (!empty($showBasicLaws))
-                            @foreach ($showBasicLaws as $index => $basicLaw)
+                        @if (!$informations->count() == 0)
+                            @foreach ($informations as $index => $information)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td><a href="{{ $basicLaw['url'] }}">{{ $basicLaw['name'] }}</a></td>
+                                    <td><a href="{{ $information['file_url'] }}">{{ $information['name'] }}</a></td>
+                                    <td>{{ $information['category'] }}</td>
                                 </tr>
                             @endforeach
-                        @else --}}
+                        @else
                             <tr>
                                 <td colspan="3" class="text-center">Tidak ada data</td>
                             </tr>
-                        {{-- @endif --}}
+                        @endif
                     </tbody>
                 </table>
             </section>

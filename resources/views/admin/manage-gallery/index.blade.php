@@ -1,12 +1,3 @@
-{{-- @extends('admin.layout.index')
-
-@section('main')
-<div class="" style="margin: 0 0 0 300px; padding: 1rem;">
-        
-        <h1>{{ $title }}</h1>
-</div>
-@endsection --}}
-
 @extends('admin.layout.index')
 
 @section('main')
@@ -22,43 +13,51 @@
             <div class="page-heading">
                 <h3>{{ $title }}</h3>
             </div>
-            <div class="page-content">
-                <section class="row">
-                    <div class="col-12">
-                        <table id="tabsle-news"> 
-                                <thead>
-                                        <tr>
-                                        <th>No</th>
-                                        <th>Judul</th>
-                                        <th>Isi</th>
-                                        <th>Penulis</th>
-                                        <th>Tanggal</th>
-                                        <th>Aksi</th>
-                                        </tr>
-                                </thead>
-                                <tbody>
-                                        {{-- @foreach ($news as $item)
-                                        <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->title }}</td>
-                                                <td>{{ $item->content }}</td>
-                                                <td>{{ $item->author }}</td>
-                                                <td>{{ $item->created_at }}</td>
-                                                <td>
-                                                <a href="{{ route('admin.manage-news.edit', $item->id) }}">Edit</a>
-                                                <form action="{{ route('admin.manage-news.delete', $item->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit">Delete</button>
-                                                </form>
-                                                </td>
-                                        </tr>
-                                        @endforeach --}}
-                                </tbody>
+
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Data Berita</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-end mb-3">
+                            <a href="{{ route('admin.manage-gallery.create') }}" class="btn btn-success">
+                                Tambah Berita
+                            </a>
+                        </div>
+                        <table class="table table-striped" id="table1">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tag Name</th>
+                                    <th>Judul</th>
+                                    <th>Tanggal</th>
+                                    <th>Tindakan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data as $key => $item)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $item['tag_name'] }}</td>
+                                        <td>{{ $item['title'] }}</td>
+                                        <td>{{ $item['created_at'] }}</td>
+                                        <td>
+                                            <a id="test"
+                                                href="{{ route('admin.manage-gallery.edit', $item['slug']) }}"
+                                                class="btn btn-primary">Edit</a>
+                                            <button class="btn btn-danger btn-delete" data-id="{{ $item['id'] }}">
+                                                Hapus
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
-                </section>
-            </div>
+                </div>
+
+            </section>
 
             <footer>
                 {{-- <div class="footer clearfix mb-0 text-muted">
@@ -73,4 +72,10 @@
             </footer>
         </div>
     </div>
+    <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script>
+        // Simple Datatable
+        let table1 = document.querySelector('#table1');
+        let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
 @endsection
