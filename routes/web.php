@@ -25,13 +25,15 @@ Route::get('/', [DashboardController::class, 'index']);
 
 // Profile
 Route::get('/profil/struktur-organisasi', [ProfileController::class, 'organizationalStructure']);
+Route::get('/profil/struktur-keanggotaan', [ProfileController::class, 'memberStructure']);
 Route::get('/profil/visi-dan-misi', [ProfileController::class, 'visiMisi']);
 Route::get('/profil/regulasi-tugas-dan-fungsi', [ProfileController::class, 'dutiesFunctions']);
 
 // Publikasi
 Route::get('/publikasi/siaran-pers', [PublicationController::class, 'pressRelease']);
 Route::get('/publikasi/siaran-pers/{slug}', [PublicationController::class, 'showPressRelease']);
-Route::get('/publikasi/informasi', [PublicationController::class, 'information']);
+Route::get('/publikasi/informasi', [PublicationController::class, 'information'])->name('information');
+Route::post('/publikasi/informasi', [PublicationController::class, 'information'])->name('information');
 Route::get('/publikasi/informasi/{slug}', [PublicationController::class, 'showInformation']);
 Route::get('/publikasi/galeri-foto', [PublicationController::class, 'photoGallery']);
 Route::get('/publikasi/galeri-foto/{slug}', [PublicationController::class, 'showPhotoGallery']);
@@ -83,9 +85,18 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/data/edit/{id}', [ManageController::class, 'dataEdit'])->name('admin.manage-data.edit');
         Route::put('/data/{id}', [ManageController::class, 'dataUpdate'])->name('admin.manage-data.update');
         Route::delete('/data/{id}', [ManageController::class, 'dataDestroy'])->name('admin.manage-data.destroy');
+
+        Route::get('/service', [ManageController::class, 'service'])->name('admin.manage-service.index');
         
         Route::get('/profil/edit/{slug}', [ManageController::class, 'profileEdit'])->name('admin.manage-profile.edit');
         Route::put('/profil/{slug}', [ManageController::class, 'profileUpdate'])->name('admin.manage-profile.update');
+        
+        Route::get('/struktur-keanggotaan',[ManageController::class, 'memberStructure'])->name('admin.manage-member-structure.index');
+        Route::get('/struktur-keanggotaan/tambah',[ManageController::class, 'memberStructureCreate'])->name('admin.manage-member-structure.create');
+        Route::post('/struktur-keanggotaan',[ManageController::class, 'memberStructureStore'])->name('admin.manage-member-structure.store');
+        Route::get('/struktur-keanggotaan/{id}',[ManageController::class, 'memberStructureEdit'])->name('admin.manage-member-structure.edit');
+        Route::put('/struktur-keanggotaan/{id}',[ManageController::class, 'memberStructureUpdate'])->name('admin.manage-member-structure.update');
+        Route::delete('/struktur-keanggotaan/{id}',[ManageController::class, 'memberStructureDestroy'])->name('admin.manage-member-structure.destroy');
         
         Route::get('/pengaturan', [ManageController::class, 'settingEdit'])->name('admin.manage-setting.edit');
         Route::put('/pengaturan', [ManageController::class, 'settingUpdate'])->name('admin.manage-setting.update');

@@ -23,7 +23,7 @@
                                     <i class="fa-solid fa-arrow-left"></i>
                                     Kembali
                                 </button>
-                                <form class="form form-vertical" action="{{ route('admin.manage-data.store') }}"
+                                <form class="form form-vertical" action="{{ route('admin.manage-member-structure.store') }}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('POST')
@@ -33,29 +33,36 @@
                                                 <div class="form-group">
                                                     <label for="name">Nama</label>
                                                     <input type="text" id="name" class="form-control" name="name"
-                                                        placeholder="Masukkan nama file" value="{{ old('name') }}" required>
+                                                        placeholder="Masukkan nama anggota" value="{{ old('name') }}" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="position">Jabatan</label>
+                                                    <input type="text" id="position" class="form-control" name="position"
+                                                        placeholder="Masukkan jabatan" value="{{ old('position') }}" required>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <fieldset class="form-group">
-                                                    <label for="category">Categori</label>
-                                                    <select id="category" name="category" class="form-select" required>
-                                                        <option value="">-- Pilih Categori --</option>
-                                                        @foreach ($categories as $category)
-                                                            <option value="{{ $category->slug }}">{{ $category->category }}</option>
+                                                    <label for="structure">Struktur</label>
+                                                    <select id="structure" name="structure" class="form-select" required>
+                                                        <option value="">-- Pilih Struktur --</option>
+                                                        @foreach ($structures as $structure)
+                                                            <option value="{{ $structure['slug'] }}">{{ $structure['name'] }}</option>
                                                         @endforeach
                                                     </select>
                                                 </fieldset>
                                             </div>
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="file" class="form-label">File
+                                                    <label for="photo" class="form-label">Foto
                                                         <br>
                                                         <span style="font-weight: lighter; font-size: 0.9rem">*format
-                                                            pdf | max:5mb
+                                                            jpg,png,jpeg | max:3mb
                                                         </span>
                                                     </label>
-                                                    <input class="form-control" type="file" id="file" name="file"
+                                                    <input class="form-control" type="file" id="photo" name="photo"
                                                         required>
                                                 </div>
                                             </div>

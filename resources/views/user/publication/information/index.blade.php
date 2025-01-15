@@ -4,6 +4,26 @@
     <main class="main">
         <section class="media__container mb-3">
             <section class="card my-3 p-3 overflow-hidden rounded-3">
+                <form action="{{ route('information') }}" method="POST">
+                    @csrf
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Masukkan Nama" aria-label="Name" name="name"
+                            value="{{ request()->input('name') }}">
+                        <select class="form-select" aria-label="Pilih Kategori" name="kategory">
+                            <option selected value="">--- Pilih Kategori ---</option>
+                            <option value="informasi-publik" {{ request()->input('kategory') == 'informasi-publik' ? 'selected' : '' }}>
+                                Informasi Publik
+                            </option>
+                            <option value="informasi-harga" {{ request()->input('kategory') == 'informasi-harga' ? 'selected' : '' }}>
+                                Informasi Harga
+                            </option>
+                        </select>
+                        <button type="submit" class="btn btn-filter">
+                            Filter
+                        </button>
+                    </div>
+                </form>
+                
                 <table class="publication__table">
                     <thead>
                         <tr>
@@ -14,9 +34,10 @@
                     </thead>
                     <tbody>
                         @if (!$informations->count() == 0)
+                            @php $no = 1; @endphp
                             @foreach ($informations as $index => $information)
                                 <tr>
-                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $no++ }}</td>
                                     <td><a href="{{ $information['file_url'] }}">{{ $information['name'] }}</a></td>
                                     <td>{{ $information['category'] }}</td>
                                 </tr>
@@ -29,34 +50,6 @@
                     </tbody>
                 </table>
             </section>
-            {{-- @foreach ($informations as $news)
-                <article class="card card-lg p-3 mt-3">
-                    <div class="d-md-flex align-items-stretch gap-3">
-                        <figure class="post-item-figure mb-3 mb-md-0 p-0 rounded overflow-hidden">
-                            <img class="" src="{{ $news->image_url }}" alt="news" width="800px" 
-                            height="600px">
-                        </figure>
-                        <div class="p-0 post-item-description">
-                            <div>
-                                <h2 class="fs-5 fw-bold text-primary-1">{{ $news->title }}</h2>
-                                <p class="post-item-caption text-default-1"> {{ $news->description }} </p>
-                            </div>
-                            <div>
-                                <a href="informasi/{{ $news->slug }}"
-                                    class="d-flex align-items-center text-secondary-1">
-                                    <p class="m-0">SELENGKAPNYA</p>
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                                <hr>
-                                <p class="m-0 text-default-1">
-                                    <i class="fa-solid fa-calendar"></i>
-                                    {{ $news->date_news }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            @endforeach --}}
         </section>
     </main>
 @endsection

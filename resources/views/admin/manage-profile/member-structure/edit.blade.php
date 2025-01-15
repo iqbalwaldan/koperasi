@@ -23,42 +23,57 @@
                                     <i class="fa-solid fa-arrow-left"></i>
                                     Kembali
                                 </button>
-                                <form class="form form-vertical" action="{{ route('admin.manage-data.store') }}"
-                                    method="POST" enctype="multipart/form-data">
+                                <form class="form form-vertical"
+                                    action="{{ route('admin.manage-member-structure.update', $data['id']) }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
-                                    @method('POST')
+                                    @method('PUT')
                                     <div class="form-body">
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="name">Nama</label>
                                                     <input type="text" id="name" class="form-control" name="name"
-                                                        placeholder="Masukkan nama file" value="{{ old('name') }}" required>
+                                                        placeholder="Masukkan nama anggota" value="{{ $data['name'] }}"
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="position">Jabatan</label>
+                                                    <input type="text" id="position" class="form-control"
+                                                        name="position" placeholder="Masukkan jabatan"
+                                                        value="{{ $data['position'] }}" required>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <fieldset class="form-group">
-                                                    <label for="category">Categori</label>
-                                                    <select id="category" name="category" class="form-select" required>
-                                                        <option value="">-- Pilih Categori --</option>
-                                                        @foreach ($categories as $category)
-                                                            <option value="{{ $category->slug }}">{{ $category->category }}</option>
+                                                    <label for="structure">Struktur</label>
+                                                    <select id="structure" name="structure" class="form-select" required>
+                                                        @foreach ($structures as $structure)
+                                                            <option value="{{ $structure['slug'] }}"
+                                                                {{ $structure['slug'] == $data['structure'] ? 'selected' : '' }}>
+                                                                {{ $structure['name'] }}
                                                         @endforeach
                                                     </select>
                                                 </fieldset>
                                             </div>
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="file" class="form-label">File
+                                                    <label for="photo" class="form-label">Foto
                                                         <br>
                                                         <span style="font-weight: lighter; font-size: 0.9rem">*format
-                                                            pdf | max:5mb
+                                                            jpg,png,jpeg | max:3mb
                                                         </span>
                                                     </label>
-                                                    <input class="form-control" type="file" id="file" name="file"
-                                                        required>
+                                                    <input class="form-control" type="file" id="photo"
+                                                        name="photo">
                                                 </div>
                                             </div>
+                                            <figure class="overflow-hidden">
+                                                <img src="{{ $data['image_url'] }}" alt="" width="300"
+                                                    class="img-fluid img-cover rounded-3 border">
+                                            </figure>
                                             <div class="col-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
                                                 <button type="reset"

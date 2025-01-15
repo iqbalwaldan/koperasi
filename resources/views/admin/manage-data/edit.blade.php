@@ -57,7 +57,7 @@
                                                     <label for="file" class="form-label">File
                                                         <br>
                                                         <span style="font-weight: lighter; font-size: 0.9rem">*format
-                                                            pdf | max:1mb
+                                                            pdf | max:5mb
                                                         </span>
                                                     </label>
                                                     <input class="form-control" type="file" id="file"

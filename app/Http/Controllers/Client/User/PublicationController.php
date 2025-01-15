@@ -66,24 +66,53 @@ class PublicationController extends Controller
         ]);
     }
 
-    public function information()
+    public function information(Request $request)
     {
-        $tag = PublicationTag::where('slug', 'informasi')->first();
-        $informations = PublicationDetail::where('publication_tag_id', $tag->id)->orderBy('created_at', 'DESC')->first();
 
-        $informations->media = $informations->getMedia($informations->slug)->map(function ($media) use ($informations) {
-            return [
-                'name' => $media->name,
-                'file_url' => $media->getUrl(),
-                'category' => $informations->category
-            ];
-        });
+        $tag = PublicationTag::where('slug', 'informasi')->first();
+        $informations = PublicationDetail::where('publication_tag_id', $tag->id)->get();
+
+        $name = $request->input('name');
+        $category = $request->input('kategory');
+
+        $data = collect();
+
+        foreach ($informations as $information) {
+            $mediaData = $information->getMedia($information->slug)->map(function ($media) use ($information) {
+                return [
+                    'name' => $media->name,
+                    'file_url' => $media->getUrl(),
+                    'category' => $information->category,
+                    'slug' => $information->slug
+                ];
+            });
+
+            $data = $data->merge($mediaData);
+        }
+
+        $query = collect($data);
+        if ($name) {
+            $query = $query->filter(function ($item) use ($name) {
+                return str_contains(strtolower($item['name']), strtolower($name));
+            });
+        }
+
+        if ($category) {
+            $query = $query->filter(function ($item) use ($category) {
+                return str_contains(strtolower($item['slug']), strtolower($category));
+            });
+        }
+
+        $informations = $query;
+
 
         return view('user.publication.information.index', [
             'title' => 'Informasi',
-            'informations' => $informations->media
+            'informations' => $informations
         ]);
     }
+
+
 
     public function showInformation($slug)
     {

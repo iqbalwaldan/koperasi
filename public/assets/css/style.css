@@ -123,6 +123,22 @@ body {
     font-size: 1.8em;
 }
 
+.btn-filter {
+    background-color: var(--PRIMARY-COLOR);
+    color: var(--WHITE-COLOR);
+}
+
+.btn-filter:hover {
+    background-color: var(--PRIMARY-COLOR-200);
+    color: var(--WHITE-COLOR);
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    box-shadow: 0px 0px 5px var(--PRIMARY-COLOR);
+    border: solid 1px var(--PRIMARY-COLOR);
+}
+
 .organizational-structure figure {
     width: 100%;
     overflow: hidden;
@@ -646,6 +662,7 @@ body {
     border-radius: 0.7rem;
     overflow: hidden;
     transition: transform 0.3s ease;
+    text-decoration: none;
 }
 
 .program-list:hover {
@@ -658,6 +675,14 @@ body {
     margin: 0;
     margin: 0 0 1rem 0;
     border-radius: 0 0 0 7rem;
+}
+
+.figure-link-list {
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    margin: 0 0 1rem 0;
+    border-radius: 0.7rem;
 }
 
 .program-list h3,
@@ -715,6 +740,131 @@ body {
 }
 
 /* END CSS Program */
+
+.main__member {
+    margin: 1rem 0 0 0;
+    padding: 1rem;
+    border-radius: 0.7rem;
+}
+
+.main__member h2 {
+    font-family: var(--FF-SECONDARY);
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--PRIMARY-COLOR);
+}
+.main__member h3 {
+    font-family: var(--FF-SECONDARY);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.main__member p {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.member-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.member-list-container.member-list-container-lg {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    /* grid-template-columns: repeat(1, auto); */
+}
+.member-list-container.member-list-container-md {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* grid-template-columns: repeat(4, auto); */
+}
+.member-list-container.member-list-container-sm {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* grid-template-columns: repeat(5, auto); */
+}
+
+.member-list {
+    width: fit-content;
+    padding-bottom: 1rem;
+    /* background-color: var(--LIGHT-COLOR); */
+    overflow: hidden;
+    max-width: 300px;
+}
+.member-list.member-list-md {
+    width: fit-content;
+    padding-bottom: 1rem;
+    overflow: hidden;
+    max-width: 240px;
+}
+.member-list.member-list-sm {
+    width: fit-content;
+    padding-bottom: 1rem;
+    overflow: hidden;
+    max-width: 200px;
+}
+
+.member-list figure {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    margin: 0;
+    border-radius: 0.5rem;
+}
+
+.member-list figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.member-list h4,
+.member-list p {
+    text-align: center;
+}
+
+.member-list h4 {
+    font-size: 1.4rem;
+    padding: 0 0.5rem;
+    font-weight: 700;
+}
+.member-list p {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.member-list-md h4 {
+    font-size: 1.2rem;
+    padding: 0 0.5rem;
+    font-weight: 700;
+}
+.member-list-md p {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.member-list-sm h4 {
+    font-size: 1.1rem;
+    padding: 0 0.5rem;
+    font-weight: 700;
+}
+.member-list-sm p {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* START CSS Member Structure */
+
+/* END CSS Member Structure */
 
 /* START CSS Two Collumn */
 
@@ -1290,6 +1440,9 @@ figure {
     .program-list {
         max-width: 45%;
     }
+    .program-list.sm {
+        max-width: 45%;
+    }
 
     /* END CSS Program */
 
@@ -1320,6 +1473,10 @@ figure {
 @media (min-width: 992px) {
     .media__container {
         width: var(--MC-LG);
+    }
+
+    .program-list.sm {
+        max-width: 23%;
     }
 
     /* START CSS footer */

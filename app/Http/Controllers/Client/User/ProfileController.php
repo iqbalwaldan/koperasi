@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Client\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\MemberDetail;
+use App\Models\MemberTag;
 use App\Models\ProfileDetail;
 use App\Models\ProfileTag;
 use Illuminate\Http\Request;
@@ -20,6 +22,26 @@ class ProfileController extends Controller
         return view('user.profile.organizational-structure.index', [
             'title' => 'Struktur Organisasi',
             'organizationalStructure' => $organizationalStructure
+        ]);
+    }
+    public function memberStructure()
+    {
+        $members = MemberDetail::with('memberTag')->get();
+
+        $data = $members->flatMap(function ($member) {
+            return $member->getMedia($member->memberTag->slug)->map(function ($media) use ($member) {
+                return [
+                    'name' => $member->name,
+                    'image_url' => $media->getUrl(),
+                    'position' => $member->position,
+                    'slug' => $member->memberTag->slug,
+                ];
+            });
+        });
+        
+        return view('user.profile.member-structure.index', [
+            'title' => 'Struktur Keanggotaan',
+            'members' => $data
         ]);
     }
 
@@ -44,5 +66,4 @@ class ProfileController extends Controller
             'dutiesFunctions' => $dutiesFunctions
         ]);
     }
-
 }

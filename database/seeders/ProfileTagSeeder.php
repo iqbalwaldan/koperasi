@@ -17,6 +17,7 @@ class ProfileTagSeeder extends Seeder
             ['Struktur Organisasi', 'struktur-organisasi'],
             ['Visi dan Misi', 'visi-dan-misi'],
             ['Regulasi, Tugas dan Fungsi', 'regulasi-tugas-dan-fungsi'],
+            // ['Struktur Keanggotaan', 'struktur-keanggotaan'],
         ];
 
         foreach ($tags as $tag) {

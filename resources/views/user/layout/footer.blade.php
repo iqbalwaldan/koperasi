@@ -65,7 +65,7 @@
 <div class="footer__copyright">
     <div class="media__container">
         <div class="footer__copyright-container">
-            <p>Copyright @2024</p>
+            <p>Copyright @2025</p>
         </div>
     </div>
 </div>

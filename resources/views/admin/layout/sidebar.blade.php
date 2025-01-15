@@ -16,21 +16,28 @@
             <div class="sidebar-menu">
                 <ul class="menu">
                     <li class="sidebar-title">Profil</li>
-                    <li class="sidebar-item {{ $active == 'struktur-organisasi' ? 'active' : '' }}"">
+                    <li class="sidebar-item {{ $active == 'struktur-organisasi' ? 'active' : '' }}">
                         <a href="{{ route('admin.manage-profile.edit', ['slug' => 'struktur-organisasi']) }}"
                             class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Struktur Organisasi</span>
                         </a>
                     </li>
-                    <li class="sidebar-item {{ $active == 'visi-dan-misi' ? 'active' : '' }}"">
+                    <li class="sidebar-item {{ $active == 'struktur-keanggotaan' ? 'active' : '' }}">
+                        <a href="{{ route('admin.manage-member-structure.index')}}"
+                            class='sidebar-link'>
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Struktur Keanggotaan</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ $active == 'visi-dan-misi' ? 'active' : '' }}">
                         <a href="{{ route('admin.manage-profile.edit', ['slug' => 'visi-dan-misi']) }}"
                             class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Visi dan Misi</span>
                         </a>
                     </li>
-                    <li class="sidebar-item {{ $active == 'regulasi-tugas-dan-fungsi' ? 'active' : '' }}"">
+                    <li class="sidebar-item {{ $active == 'regulasi-tugas-dan-fungsi' ? 'active' : '' }}">
                         <a href="{{ route('admin.manage-profile.edit', ['slug' => 'regulasi-tugas-dan-fungsi']) }}"
                             class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
@@ -38,19 +45,19 @@
                         </a>
                     </li>
                     <li class="sidebar-title">Berita</li>
-                    <li class="sidebar-item {{ $active == 'press-release' ? 'active' : '' }}"">
+                    <li class="sidebar-item {{ $active == 'press-release' ? 'active' : '' }}">
                         <a href="{{ route('admin.manage-press-release.index') }}" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Siaran Pers</span>
                         </a>
                     </li>
-                    <li class="sidebar-item {{ $active == 'activity' ? 'active' : '' }}"">
+                    <li class="sidebar-item {{ $active == 'activity' ? 'active' : '' }}">
                         <a href="{{ route('admin.manage-activity.index') }}" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Kegiatan</span>
                         </a>
                     </li>
-                    <li class="sidebar-item {{ $active == 'gallery' ? 'active' : '' }}"">
+                    <li class="sidebar-item {{ $active == 'gallery' ? 'active' : '' }}">
                         <a href="{{ route('admin.manage-gallery.index') }}" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Galeri</span>
@@ -64,7 +71,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item {{ $active == 'layanan' ? 'active' : '' }}" has-sub>
-                        <a href="{{ route('admin.manage-data.index', ['slug' => 'layanan']) }}" class="sidebar-link">
+                        <a href="{{ route('admin.manage-service.index') }}" class="sidebar-link">
                             <i class="bi bi-grid-fill"></i>
                             <span>Layanan</span>
                         </a>

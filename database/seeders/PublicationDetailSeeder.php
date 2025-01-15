@@ -143,6 +143,11 @@ class PublicationDetailSeeder extends Seeder
                 'category' => 'Informasi Publik',
                 'slug' => 'informasi-publik',
             ],
+            [
+                'publication_tag_id' => 3,
+                'category' => 'Informasi Harga',
+                'slug' => 'informasi-harga',
+            ],
         ];
 
         foreach ($publicationDetails as $publicationDetail) {

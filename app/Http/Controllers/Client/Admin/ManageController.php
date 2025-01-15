@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Client\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MemberDetail;
+use App\Models\MemberTag;
 use App\Models\NewsDetail;
 use App\Models\ProfileDetail;
 use App\Models\ProfileTag;
@@ -62,6 +64,165 @@ class ManageController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->with('error', 'Gagal memperbarui profil!');
         }
+    }
+
+    public function memberStructure()
+    {
+        $members = MemberDetail::with('memberTag')->get()->map(function ($member) {
+            return [
+                'id' => $member->id,
+                'name' => $member->name,
+                'position' => $member->position,
+                'member_tag_name' => $member->memberTag->name,
+            ];
+        });
+        return view('admin.manage-profile.member-structure.index', [
+            'title' => 'Struktur Keanggotaan',
+            'active' => 'member-structure',
+            'tag' => 'Keanggotaan',
+            'members' => $members
+        ]);
+    }
+
+    public function memberStructureCreate()
+    {
+        $memberTag = MemberTag::get()->map(function ($item) {
+            return [
+                'name' => $item->name,
+                'slug' => $item->slug,
+            ];
+        });
+
+        return view('admin.manage-profile.member-structure.create', [
+            'title' => 'Struktur Keanggotaan',
+            'active' => 'member-structure',
+            'tag' => 'Keanggotaan',
+            'structures' => $memberTag
+        ]);
+    }
+
+    public function memberStructureStore(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $request->validate([
+                'name' => 'required',
+                'position' => 'required',
+                'structure' => 'required',
+                'photo' => 'image|mimes:jpeg,png,jpg|max:3072',
+            ]);
+
+            $memberTag = MemberTag::where('slug', $request->structure)->first();
+
+            $slug = Str::slug($request->name) . '-' . Str::slug($request->position) . '-' . time();
+            $member = MemberDetail::create([
+                'member_tag_id' => $memberTag->id,
+                'name' => $request->name,
+                'position' => $request->position,
+            ]);
+
+            $member->addMediaFromRequest('photo')->usingName($request->name)->usingFileName('member_' . $slug)->toMediaCollection($request->structure);
+            DB::commit();
+            return redirect()->route('admin.manage-member-structure.index')->with('success', 'Struktur keanggotaan berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+            // return redirect()->back()->withInput()->with('error', 'Gagal menambahkan struktur keanggotaan!');
+        }
+    }
+
+    public function memberStructureEdit($id)
+    {
+        $member = MemberDetail::findOrFail($id);
+        $imageUrl = $member->getFirstMediaUrl($member->memberTag->slug);
+
+        $memberTag = MemberTag::get()->map(function ($item) {
+            return [
+                'name' => $item->name,
+                'slug' => $item->slug,
+            ];
+        });
+
+        $data = [
+            'id' => $member->id,
+            'name' => $member->name,
+            'position' => $member->position,
+            'structure' => $member->memberTag->slug,
+            'image_url' => $imageUrl,
+        ];
+
+        return view('admin.manage-profile.member-structure.edit', [
+            'title' => 'Edit Struktur Keanggotaan',
+            'active' => 'member-structure',
+            'tag' => 'Keanggotaan',
+            'data' => $data,
+            'structures' => $memberTag
+        ]);
+    }
+
+    public function memberStructureUpdate(Request $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+            $member = MemberDetail::findOrFail($id);
+            $request->validate([
+                'name' => 'required',
+                'position' => 'required',
+                'structure' => 'required',
+                // 'photo' => 'image|mimes:jpeg,png,jpg|max:3072',
+            ]);
+
+            $memberTag = MemberTag::where('slug', $request->structure)->first();
+
+            if ($member->member_tag_id !== $memberTag->id && !$request->hasFile('photo')) {
+                $member->getMedia($member->memberTag->slug)->map(function (Media $media) use ($memberTag) {
+                    $media->update([
+                        'collection_name' => $memberTag->slug,
+                    ]);
+                });
+            }
+
+            $slug = Str::slug($request->name) . '-' . Str::slug($request->position) . '-' . time();
+            $member->update([
+                'member_tag_id' => $memberTag->id,
+                'name' => $request->name,
+                'position' => $request->position,
+            ]);
+            if ($request->hasFile('photo')) {
+                try {
+                    $request->validate([
+                        'photo' => 'image|mimes:jpeg,png,jpg|max:3072',
+                    ]);
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                    return redirect()->back()->with('error', 'Gagal mengunggah gambar!');
+                }
+                $member->clearMediaCollection($member->memberTag->slug);
+                $member->addMediaFromRequest('photo')->usingName($request->name)->usingFileName('member_' . $slug)->toMediaCollection($request->structure);
+            }
+
+            DB::commit();
+            return redirect()->route('admin.manage-member-structure.index')->with('success', 'Struktur keanggotaan berhasil diperbarui!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+            // return redirect()->back()->withInput()->with('error', 'Gagal memperbarui struktur keanggotaan!');
+        }
+    }
+    
+    public function memberStructureDestroy($id)
+    {
+        try {
+            DB::beginTransaction();
+            $member = MemberDetail::findOrFail($id);
+            // delete media
+            $member->clearMediaCollection($member->memberTag->slug);
+            $member->delete();
+            DB::commit();
+            return response()->json(['message' => 'Struktur keanggotaan berhasil dihapus!'], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Gagal menghapus struktur keanggotaan!'], 500);
+        }
+
     }
 
 
@@ -557,7 +718,7 @@ class ManageController extends Controller
             $request->validate([
                 'name' => 'required',
                 'category' => 'required',
-                'file' => 'required|file|mimes:pdf|max:1024',
+                'file' => 'required|file|mimes:pdf|max:5120',
             ]);
 
             $file_name = Str::slug('file_' . $request->name) . '-' . time();
@@ -568,7 +729,11 @@ class ManageController extends Controller
             }
 
             $data->addMediaFromRequest('file')->usingName($request->name)->usingFileName($file_name)->toMediaCollection($data->slug);
-            return redirect()->route('admin.manage-data.index', $data->publicationTag->slug)->with('success', 'Data berhasil ditambahkan!');
+            if ($data->publicationTag->slug === 'layanan') {
+                return redirect()->route('admin.manage-service.index')->with('success', 'Data berhasil ditambahkan!');
+            } else {
+                return redirect()->route('admin.manage-data.index', $data->publicationTag->slug)->with('success', 'Data berhasil ditambahkan!');
+            }
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->with('error', 'Gagal menambahkan data!');
         }
@@ -600,7 +765,7 @@ class ManageController extends Controller
             $request->validate([
                 'name' => 'required',
                 'category' => 'required',
-                'file' => 'file|mimes:pdf|max:1024',
+                'file' => 'file|mimes:pdf|max:5120',
             ]);
 
             $media = Media::findOrFail($id);
@@ -623,11 +788,16 @@ class ManageController extends Controller
             }
 
             if ($request->hasFile('file')) {
+                $media = Media::findOrFail($id);
+                $model = PublicationDetail::with('publicationTag')->where('id', $media->model_id)->first();
                 $file_name = Str::slug('file_' . $request->name) . '-' . time();
                 $media->delete();
                 $model->addMediaFromRequest('file')->usingName($request->name)->usingFileName($file_name)->toMediaCollection($model->slug);
             }
 
+            if ($model->publicationTag->slug === 'layanan') {
+                return redirect()->route('admin.manage-service.index')->with('success', 'Data berhasil diperbarui!');
+            }
             return redirect()->route('admin.manage-data.index', $model->publicationTag->slug)->with('success', 'Data berhasil diperbarui!');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->with('error', 'Gagal memperbarui data!');
@@ -643,6 +813,37 @@ class ManageController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => 'Gagal menghapus data!'], 500);
         }
+    }
+
+    public function service()
+    {
+        $showBasicLawTag = PublicationTag::where('slug', 'layanan')->first();
+        $showBasicLawDetail = PublicationDetail::with('publicationTag')->where('publication_tag_id', $showBasicLawTag->id)->get();
+        $data = [];
+        foreach ($showBasicLawDetail as $item) {
+            // Ambil semua media berdasarkan slug
+            $mediaFiles = $item->getMedia($item->slug)->map(function ($media) use ($item) {
+                return [
+                    'id' => $media->id,
+                    'publication_tag_name' => $item->publicationTag->name,
+                    'category' => $item->category,
+                    'category_slug' => $item->slug,
+                    'name' => $media->name,
+                    'file_name' => $media->file_name,
+                    'collection_name' => $media->collection_name,
+                    'url' => $media->getUrl(),
+                ];
+            });
+            // Gabungkan data ke dalam $data
+            $data = array_merge($data, $mediaFiles->toArray());
+        }
+
+        return view('admin.manage-service.index', [
+            'title' => 'Manajemen Data ' . $showBasicLawTag->name,
+            'active' => $showBasicLawTag->slug,
+            'tag' => $showBasicLawTag->name,
+            'data' => $data
+        ]);
     }
 
     public function settingEdit()
@@ -697,7 +898,7 @@ class ManageController extends Controller
                 }
             }
         }
-    
+
         return redirect()->route('admin.manage-setting.edit')->with('success', 'Pengaturan berhasil diperbarui!');
     }
 }

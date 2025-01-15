@@ -122,6 +122,7 @@
                     <p class=""><i class="fa-solid fa-user"></i> PROFIL</p>
                     <div class="header__dropdown dropdown-menu">
                         <a class="dropdown-item" href="/profil/struktur-organisasi">Struktur Organisasi</a>
+                        <a class="dropdown-item" href="/profil/struktur-keanggotaan">Struktur Keanggotaan</a>
                         <a class="dropdown-item" href="/profil/visi-dan-misi">Visi dan Misi</a>
                         <a class="dropdown-item" href="/profil/regulasi-tugas-dan-fungsi">Regulasi, Tugas dan Fungsi</a>
                     </div>

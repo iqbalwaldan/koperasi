@@ -54,86 +54,141 @@
 
             <section class="main__program card my-3 p-4">
                 <h2>LAYANAN KAMI</h2>
-            <p>
-                Berkomitmen untuk mendukung pertumbuhan ekonomi lokal, kami menawarkan berbagai program unggulan yang
-                dirancang untuk menguatkan dan memberdayakan usaha kecil dan menengah. Dari pembinaan hingga distribusi,
-                setiap program kami dirancang untuk membantu Anda mencapai kesuksesan yang berkelanjutan.
-            </p>
-            <div class="program-container">
-                <div class="program-list card border">
-                    <figure class="figure-program-list">
-                        <img src="{{ asset('assets/img/2.png') }}" alt="">
-                    </figure>
-                    <h3>Bidang Perdagangan</h3>
-                    {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
-                    <div class="overlay">
-                        {{-- <h3>Bidang Perdagangan</h3> --}}
-                        <p>Kegiatan jual beli barang atau jasa yang berfungsi sebagai penghubung antara produsen dan konsumen untuk memenuhi kebutuhan pasar.</p>
-                        <a class="program-link" href="{{ route('service-detail', ['slug' => 'bidang-perdagangan']) }}">Lihat Program</a>
+                <p>
+                    Berkomitmen untuk mendukung pertumbuhan ekonomi lokal, kami menawarkan berbagai program unggulan yang
+                    dirancang untuk menguatkan dan memberdayakan usaha kecil dan menengah. Dari pembinaan hingga distribusi,
+                    setiap program kami dirancang untuk membantu Anda mencapai kesuksesan yang berkelanjutan.
+                </p>
+                <div class="program-container">
+                    <div class="program-list card border">
+                        <figure class="figure-program-list">
+                            <img src="{{ asset('assets/img/2.png') }}" alt="">
+                        </figure>
+                        <h3>Bidang Perdagangan</h3>
+                        {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
+                        <div class="overlay">
+                            {{-- <h3>Bidang Perdagangan</h3> --}}
+                            <p>Kegiatan jual beli barang atau jasa yang berfungsi sebagai penghubung antara produsen dan
+                                konsumen untuk memenuhi kebutuhan pasar.</p>
+                            <a class="program-link"
+                                href="{{ route('service-detail', ['slug' => 'bidang-perdagangan']) }}">Lihat Program</a>
+                        </div>
+                    </div>
+                    <div class="program-list card border">
+                        <figure class="figure-program-list">
+                            <img src="{{ asset('assets/img/3.png') }}" alt="">
+                        </figure>
+                        <h3>Bidang Perindustrian</h3>
+                        {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
+                        <div class="overlay">
+                            {{-- <h3>Bidang Perindustrian</h3> --}}
+                            <p>Proses pengolahan bahan mentah menjadi barang jadi atau setengah jadi dengan memanfaatkan
+                                teknologi dan sumber daya.</p>
+                            <a class="program-link"
+                                href="{{ route('service-detail', ['slug' => 'bidang-perindustrian']) }}">Lihat Program</a>
+                        </div>
+                    </div>
+                    <div class="program-list card border">
+                        <figure class="figure-program-list">
+                            <img src="{{ asset('assets/img/4.png') }}" alt="">
+                        </figure>
+                        <h3>Bidang Pemberdayaan Koperasi dan Usaha Mikro</h3>
+                        {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
+                        <div class="overlay">
+                            {{-- <h3>Bidang Pemberdayaan Koperasi dan Usaha Mikro</h3> --}}
+                            <p>Usaha kecil dan menengah yang berperan penting dalam mendukung ekonomi lokal melalui
+                                penciptaan lapangan kerja dan inovasi.</p>
+                            <a class="program-link"
+                                href="{{ route('service-detail', ['slug' => 'bidang-pemberdayaan-koperasi-dan-usaha-mikro']) }}">Lihat
+                                Program</a>
+                        </div>
+                    </div>
+                    <div class="program-list card border">
+                        <figure class="figure-program-list">
+                            <img src="{{ asset('assets/img/5.png') }}" alt="">
+                        </figure>
+                        <h3>Bidang Perizinan, Kelembagaan, Pengawasan dan Pemeriksaan</h3>
+                        {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
+                        <div class="overlay">
+                            {{-- <h3>Bidang Perizinan, Kelembagaan, Pengawasan dan Pemeriksaan</h3> --}}
+                            <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p>
+                            <a class="program-link"
+                                href="{{ route('service-detail', ['slug' => 'bidang-perizinan-kelembagaan-pengawasan-dan-pemeriksaan']) }}">Lihat
+                                Program</a>
+                        </div>
+                    </div>
+                    <div class="program-list card border">
+                        <figure class="figure-program-list">
+                            <img src="{{ asset('assets/img/6.png') }}" alt="">
+                        </figure>
+                        <h3>UPTD Pasar</h3>
+                        {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
+                        <div class="overlay">
+                            {{-- <h3>UPTD Pasar</h3> --}}
+                            <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p>
+                            <a class="program-link" href="{{ route('service-detail', ['slug' => 'uptd-pasar']) }}">Lihat
+                                Program</a>
+                        </div>
+                    </div>
+                    <div class="program-list card border">
+                        <figure class="figure-program-list">
+                            <img src="{{ asset('assets/img/7.png') }}" alt="">
+                        </figure>
+                        <h3>UPTD Metrologi Legal</h3>
+                        {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
+                        <div class="overlay">
+                            {{-- <h3>UPTD Metrologi Legal</h3> --}}
+                            <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p>
+                            <a class="program-link"
+                                href="{{ route('service-detail', ['slug' => 'uptd-metrologi-legal']) }}">Lihat Program</a>
+                        </div>
                     </div>
                 </div>
-                <div class="program-list card border">
-                    <figure class="figure-program-list">
-                        <img src="{{ asset('assets/img/3.png') }}" alt="">
-                    </figure>
-                    <h3>Bidang Perindustrian</h3>
-                    {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
-                    <div class="overlay">
-                        {{-- <h3>Bidang Perindustrian</h3> --}}
-                        <p>Proses pengolahan bahan mentah menjadi barang jadi atau setengah jadi dengan memanfaatkan teknologi dan sumber daya.</p>
-                        <a class="program-link" href="{{ route('service-detail', ['slug' => 'bidang-perindustrian']) }}">Lihat Program</a>
-                    </div>
-                </div>
-                <div class="program-list card border">
-                    <figure class="figure-program-list">
-                        <img src="{{ asset('assets/img/4.png') }}" alt="">
-                    </figure>
-                    <h3>Bidang Pemberdayaan Koperasi dan Usaha Mikro</h3>
-                    {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
-                    <div class="overlay">
-                        {{-- <h3>Bidang Pemberdayaan Koperasi dan Usaha Mikro</h3> --}}
-                        <p>Usaha kecil dan menengah yang berperan penting dalam mendukung ekonomi lokal melalui penciptaan lapangan kerja dan inovasi.</p>
-                        <a class="program-link" href="{{ route('service-detail', ['slug' => 'bidang-pemberdayaan-koperasi-dan-usaha-mikro']) }}">Lihat Program</a>
-                    </div>
-                </div>
-                <div class="program-list card border">
-                    <figure class="figure-program-list">
-                        <img src="{{ asset('assets/img/5.png') }}" alt="">
-                    </figure>
-                    <h3>Bidang Perizinan, Kelembagaan, Pengawasan dan Pemeriksaan</h3>
-                    {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
-                    <div class="overlay">
-                        {{-- <h3>Bidang Perizinan, Kelembagaan, Pengawasan dan Pemeriksaan</h3> --}}
-                        <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p>
-                        <a class="program-link" href="{{ route('service-detail', ['slug' => 'bidang-perizinan-kelembagaan-pengawasan-dan-pemeriksaan']) }}">Lihat Program</a>
-                    </div>
-                </div>
-                <div class="program-list card border">
-                    <figure class="figure-program-list">
-                        <img src="{{ asset('assets/img/6.png') }}" alt="">
-                    </figure>
-                    <h3>UPTD Pasar</h3>
-                    {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
-                    <div class="overlay">
-                        {{-- <h3>UPTD Pasar</h3> --}}
-                        <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p>
-                        <a class="program-link" href="{{ route('service-detail', ['slug' => 'uptd-pasar']) }}">Lihat Program</a>
-                    </div>
-                </div>
-                <div class="program-list card border">
-                    <figure class="figure-program-list">
-                        <img src="{{ asset('assets/img/7.png') }}" alt="">
-                    </figure>
-                    <h3>UPTD Metrologi Legal</h3>
-                    {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
-                    <div class="overlay">
-                        {{-- <h3>UPTD Metrologi Legal</h3> --}}
-                        <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p>
-                        <a class="program-link" href="{{ route('service-detail', ['slug' => 'uptd-metrologi-legal']) }}">Lihat Program</a>
-                    </div>
+            </section>
+
+            {{-- <div class="card p-2">
+                <label for="">Link untuk menampilkan website Siska Perbapo</label>
+                    <a href="https://siskaperbapo.jatimprov.go.id/" class="btn btn-success mb-4">Siska Perbapo</a>
+                <label for="">Link untuk menampilkan website Sp2kp</label>
+                    <a href="https://sp2kp.kemendag.go.id/" class="btn btn-success mb-4">Sp2kp</a>
+                <label for="">Link untuk menampilkan website Sumenep Kab</label>
+                    <a href="https://sumenepkab.go.id/" class="btn btn-success mb-4">Sumenep Kab</a>
+                <label for="">Link untuk menampilkan website Web GIS</label>
+                    <a href="/" class="btn btn-success mb-4">Web GIS</a>
+            </div> --}}
+
+            <div class="main__program card p-4">
+                <h2>Referensi Website</h2>
+                <p>
+                    Ini merupakan referensi website yang masih berkaitan dengen website DISKOPUKMPERINDAG.
+                </p>
+                <div class="program-container">
+                    <a href="https://siskaperbapo.jatimprov.go.id/" class="program-list sm card border p-2">
+                        <figure class="figure-link-list mb-2 p-4">
+                            <img src="{{ asset('assets/img/siskaperbapo.png') }}" alt="" width="200px">
+                        </figure>
+                        <h3>Siska Perbapo</h3>
+                    </a>
+                    <a href="https://sp2kp.kemendag.go.id/" class="program-list sm card border p-2">
+                        <figure class="figure-link-list mb-2 p-4">
+                            <img src="{{ asset('assets/img/sp2kp.png') }}" alt="" width="200px">
+                        </figure>
+                        <h3>SP2KP</h3>
+                    </a>
+                    <a href="https://sumenepkab.go.id/" class="program-list sm card border p-2">
+                        <figure class="figure-link-list mb-2 p-4">
+                            <img src="{{ asset('assets/img/Logo-Kabupaten-Sumenep-1.png') }}" alt="" width="200px">
+                        </figure>
+                        <h3>Kabupaten Sumenep</h3>
+                    </a>
+                    <a href="https://siskaperbapo.jatimprov.go.id/" class="program-list sm card border p-2">
+                        <figure class="figure-link-list mb-2 p-4">
+                            <img src="{{ asset('assets/img/Logo-Koperasi-Indonesia.png') }}" alt="" width="200px">
+                        </figure>
+                        <h3>Web Gis</h3>
+                    </a>
                 </div>
             </div>
-            </section>
 
             <div class="main__two-column mt-3 mb-3">
                 <section class="two-column-card card w-100 d-flex flex-column justify-content-between">
