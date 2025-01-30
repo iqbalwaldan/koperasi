@@ -72,14 +72,14 @@ class SettingSeeder extends Seeder
                 'category_slug' => 'footer-contact',
                 'value' => '(0328) 662016',
             ],
-            [
-                'key' => 'Logo Utama',
-                'slug' => 'logo-utama',
-                'category' => 'Logo',
-                'category_slug' => 'logo',
-                'value' => 'logo-utama',
-                'file' => 'assets/img/Logo/Logo DISKOPUKMPERINDAG Kab. Sumenep.png',
-            ],
+            // [
+            //     'key' => 'Logo Utama',
+            //     'slug' => 'logo-utama',
+            //     'category' => 'Logo',
+            //     'category_slug' => 'logo',
+            //     'value' => 'logo-utama',
+            //     'file' => 'assets/img/Logo/Logo DISKOPUKMPERINDAG Kab. Sumenep.png',
+            // ],
         ];
 
         foreach ($settings as $setting) {

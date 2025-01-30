@@ -14,7 +14,7 @@ class NewsSeeder extends Seeder
     {
         $this->call([
             NewsTagSeeder::class,
-            NewsDetailSeeder::class,
+            // NewsDetailSeeder::class,
         ]);
     }
 }

@@ -14,7 +14,7 @@ class MemberSeeder extends Seeder
     {
         $this->call([
             MemberTagSeeder::class,
-            MemberDetailSeeder::class,
+            // MemberDetailSeeder::class,
         ]);
     }
 }

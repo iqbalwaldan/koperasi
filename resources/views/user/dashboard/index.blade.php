@@ -52,7 +52,7 @@
                 <button class="main__hot-news-next"><i class="fa-solid fa-chevron-right"></i></button>
             </section>
 
-            <section class="main__program card my-3 p-4">
+            <section class="main__program card p-4">
                 <h2>LAYANAN KAMI</h2>
                 <p>
                     Berkomitmen untuk mendukung pertumbuhan ekonomi lokal, kami menawarkan berbagai program unggulan yang
@@ -185,7 +185,7 @@
                         <figure class="figure-link-list mb-2 p-4">
                             <img src="{{ asset('assets/img/Logo-Koperasi-Indonesia.png') }}" alt="" width="200px">
                         </figure>
-                        <h3>Web Gis</h3>
+                        <h3>Web Gis Pasar Sumenep</h3>
                     </a>
                 </div>
             </div>

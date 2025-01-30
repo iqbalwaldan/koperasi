@@ -25,11 +25,11 @@ class PublicationDetailSeeder extends Seeder
                 'file' => [
                     [
                         'title' => 'UU NO 23 TAHUN 2014 TENTANG PEMERINTAHAN DAERAH',
-                        'url' => 'assets/file/UU NO 23 TAHUN 2014 TENTANG PEMERINTAHAN DAERAH.pdf'
+                        'url' => url('assets/file/'.rawurlencode('UU NO 23 TAHUN 2014 TENTANG PEMERINTAHAN DAERAH.pdf'))
                     ],
                     [
                         'title' => 'UU NO 7 TAHUN 2014 TENTANG PERDAGANGAN',
-                        'url' => 'assets/file/UU NO 7 TAHUN 2014 TENTANG PERDAGANGAN-compressed.pdf',
+                        'url' => url('assets/file/'.rawurlencode('UU NO 7 TAHUN 2014 TENTANG PERDAGANGAN-compressed.pdf'))
                     ],
                 ]
             ],
@@ -40,11 +40,11 @@ class PublicationDetailSeeder extends Seeder
                 'file' => [
                     [
                         'title' => 'UU NO 11 TAHUN 2014 TENTANG PEMERINTAHAN DAERAH',
-                        'url' => 'assets/file/UU NO 23 TAHUN 2014 TENTANG PEMERINTAHAN DAERAH.pdf'
+                        'url' => url('assets/file/'.rawurlencode('UU NO 23 TAHUN 2014 TENTANG PEMERINTAHAN DAERAH.pdf'))
                     ],
                     [
                         'title' => 'UU NO 12 TAHUN 2014 TENTANG PERDAGANGAN',
-                        'url' => 'assets/file/UU NO 7 TAHUN 2014 TENTANG PERDAGANGAN-compressed.pdf',
+                        'url' => url('assets/file/'.rawurlencode('UU NO 7 TAHUN 2014 TENTANG PERDAGANGAN-compressed.pdf')),
                     ],
                 ]
             ],
@@ -102,51 +102,117 @@ class PublicationDetailSeeder extends Seeder
                 'publication_tag_id' => 2,
                 'category' => 'Bidang Perdagangan',
                 'slug' => 'bidang-perdagangan',
-                // 'file' => [
-                //     [
-                //         'title' => 'UU NO 11 TAHUN 2014 TENTANG PEMERINTAHAN DAERAH',
-                //         'url' => 'assets/file/UU NO 23 TAHUN 2014 TENTANG PEMERINTAHAN DAERAH.pdf'
-                //     ],
-                //     [
-                //         'title' => 'UU NO 12 TAHUN 2014 TENTANG PERDAGANGAN',
-                //         'url' => 'assets/file/UU NO 7 TAHUN 2014 TENTANG PERDAGANGAN-compressed.pdf',
-                //     ],
-                // ]
+                'file' => [
+                    [
+                        'title' => 'Form Permohonan Izin Usaha Perdagangan',
+                        'url' => url('assets/file/'.rawurlencode('file.pdf'))
+                    ],
+                    [
+                        'title' => 'Form Pendaftaran Usaha Perdagangan',
+                        'url' => url('assets/file/'.rawurlencode('file.pdf'))
+                    ],
+                ]
             ],
             [
                 'publication_tag_id' => 2,
                 'category' => 'Bidang Perindustrian',
                 'slug' => 'bidang-perindustrian',
+                'file' => [
+                    [
+                        'title' => 'Form Permohonan Izin Usaha Perindustrian',
+                        'url' => url('assets/file/'.rawurlencode('file.pdf'))
+                    ],
+                    [
+                        'title' => 'Form Pendaftaran Usaha Perindustrian',
+                        'url' => url('assets/file/'.rawurlencode('file.pdf'))
+                    ],
+                ]
             ],
             [
                 'publication_tag_id' => 2,
                 'category' => 'Bidang Pemberdayaan Koperasi dan Usaha Mikro',
                 'slug' => 'bidang-pemberdayaan-koperasi-dan-usaha-mikro',
+                'file' => [
+                    [
+                        'title' => 'Form Permohonan Izin Usaha Koperasi',
+                        'url' => url('assets/file/'.rawurlencode('file.pdf'))
+                    ],
+                    [
+                        'title' => 'Form Pendaftaran Usaha Koperasi',
+                        'url' => url('assets/file/'.rawurlencode('file.pdf'))
+                    ],
+                ]
             ],
             [
                 'publication_tag_id' => 2,
                 'category' => 'Bidang Perizinan Kelembagaan Pengawasan dan Pemeriksaan',
                 'slug' => 'bidang-perizinan-kelembagaan-pengawasan-dan-pemeriksaan',
+                'file' => [
+                    [
+                        'title' => 'Form Laporan Pengawasan',
+                        'url' => url('assets/file/'.rawurlencode('file.pdf'))
+                    ],
+                    [
+                        'title' => 'Form Laporan Pemeriksaan',
+                        'url' => url('assets/file/'.rawurlencode('file.pdf'))
+                    ],
+                ]
             ],
             [
                 'publication_tag_id' => 2,
                 'category' => 'UPTD Pasar',
                 'slug' => 'uptd-pasar',
+                'file' => [
+                    [
+                        'title' => 'Form Pendaftaran Pedagang Pasar',
+                        'url' => url('assets/file/'.rawurlencode('file.pdf'))
+                    ],
+                    [
+                        'title' => 'Form Pendataan Kios Pasar',
+                        'url' => url('assets/file/'.rawurlencode('file.pdf'))
+                    ],
+                ]
             ],
             [
                 'publication_tag_id' => 2,
                 'category' => 'UPTD Metrologi Legal',
                 'slug' => 'uptd-metrologi-legal',
+                'file' => [
+                    [
+                        'title' => 'Form Pendaftaran Alat Ukur',
+                        'url' => url('assets/file/'.rawurlencode('file.pdf'))
+                    ],
+                    [
+                        'title' => 'Form Pendaftaran Jasa Metrologi',
+                        'url' => url('assets/file/'.rawurlencode('file.pdf'))
+                    ],
+                ]
             ],
             [
                 'publication_tag_id' => 3,
                 'category' => 'Informasi Publik',
                 'slug' => 'informasi-publik',
+                'file' => [
+                    [
+                        'title' => 'Laporan Keuangan Tahun 2024',
+                        'url' => url('assets/file/'.rawurlencode('file.pdf'))
+                    ],
+                ]
             ],
             [
                 'publication_tag_id' => 3,
                 'category' => 'Informasi Harga',
                 'slug' => 'informasi-harga',
+                'file' => [
+                    [
+                        'title' => 'Harga Bahan Pokok Tanggal 16 Jan 2025',
+                        'url' => url('assets/file/'.rawurlencode('Harga Bahan Pokok Tanggal 16 Jan 2025.pdf'))
+                    ],
+                    [
+                        'title' => 'Harga Bahan Pokok Tanggal 17 Jan 2025',
+                        'url' => url('assets/file/'.rawurlencode('Harga Bahan Pokok Tanggal 17 Jan 2025.pdf')),
+                    ],
+                ]
             ],
         ];
 
@@ -167,10 +233,8 @@ class PublicationDetailSeeder extends Seeder
                 $slugCategory = Str::slug($publicationDetail['category']);
 
                 $destinationPath = "file_{$slugTitle}.pdf";
-                // Storage::disk('public')->put($destinationPath, file_get_contents(public_path($file['url'])));
-                Storage::disk('public')->put($destinationPath, file_get_contents(storage_path("app/public/{$file['url']}")));
 
-                $publicationDetaill->addMediaFromDisk($destinationPath, 'public')->usingName($file['title'])->toMediaCollection($slugCategory);
+                $publicationDetaill->addMediaFromUrl($file['url'])->usingName($file['title'])->usingFileName($destinationPath)->toMediaCollection($slugCategory);
             }
         }
     }

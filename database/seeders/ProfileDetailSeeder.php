@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ProfileDetail;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +18,7 @@ class ProfileDetailSeeder extends Seeder
             [
                 'profile_tag_id' => 1,
                 'title' => 'strukur organisasi',
-                'description' => 'assets/img/profile/struktur-organisasi-new.jpg',
+                'description' => url('assets/img/profile/'.rawurlencode('struktur-organisasi.jpg')),
             ],
             [
                 'profile_tag_id' => 2,
@@ -32,12 +33,11 @@ class ProfileDetailSeeder extends Seeder
         ];
 
         foreach ($profileDetails as $profileDetail) {
-            $profile = \App\Models\ProfileDetail::create($profileDetail);
+            $profile = ProfileDetail::create($profileDetail);
 
             if ($profileDetail['profile_tag_id'] === 1) {
                 $destinationPath = "thumb_struktur-organisasi.jpg";
-                Storage::disk('public')->put($destinationPath, file_get_contents(storage_path("app/public/{$profileDetail['description']}")));
-                $profile->addMediaFromDisk($destinationPath, 'public')->toMediaCollection('struktur-organisasi');
+                $profile->addMediaFromUrl($profileDetail['description'])->usingName($profileDetail['title'])->usingFileName($destinationPath)->toMediaCollection('struktur-organisasi');
             }
         }
     }

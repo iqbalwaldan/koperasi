@@ -83,10 +83,10 @@
                         </a>
                     </li>
                     <li class="sidebar-title">Pengaturan</li>
-                    <li class="sidebar-item {{ $active == 'pengaturan' ? 'active' : '' }}" has-sub>
+                    <li class="sidebar-item {{ $active == 'pengaturan-umum' ? 'active' : '' }}" has-sub>
                         <a href="{{ route('admin.manage-setting.edit') }}" class="sidebar-link">
                             <i class="bi bi-grid-fill"></i>
-                            <span>Pengaturan</span>
+                            <span>Pengaturan Umum</span>
                         </a>
                     </li>
                 </ul>

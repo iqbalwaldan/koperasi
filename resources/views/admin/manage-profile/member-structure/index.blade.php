@@ -82,13 +82,13 @@
                     th.style.width = '5%';
                     break;
                 case 1:
-                    th.style.width = '10%';
+                    th.style.width = '30%';
                     break;
                 case 2:
-                    th.style.width = '20%';
+                    th.style.width = '25%';
                     break;
                 case 3:
-                    th.style.width = '50%';
+                    th.style.width = '30%';
                     break;
                 case 4:
                     th.style.width = '10%';

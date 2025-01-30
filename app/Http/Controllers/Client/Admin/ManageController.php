@@ -821,7 +821,6 @@ class ManageController extends Controller
         $showBasicLawDetail = PublicationDetail::with('publicationTag')->where('publication_tag_id', $showBasicLawTag->id)->get();
         $data = [];
         foreach ($showBasicLawDetail as $item) {
-            // Ambil semua media berdasarkan slug
             $mediaFiles = $item->getMedia($item->slug)->map(function ($media) use ($item) {
                 return [
                     'id' => $media->id,
@@ -834,7 +833,6 @@ class ManageController extends Controller
                     'url' => $media->getUrl(),
                 ];
             });
-            // Gabungkan data ke dalam $data
             $data = array_merge($data, $mediaFiles->toArray());
         }
 
@@ -852,17 +850,15 @@ class ManageController extends Controller
         foreach ($setting as $item) {
             $data[$item->slug] = $item->value;
         }
-        // dd($data);s
         return view('admin.sett.edit', [
-            'title' => 'Manajemen Pengaturan',
-            'active' => 'pengaturan',
+            'title' => 'Pengaturan Umum',
+            'active' => 'pengaturan-umum',
             'setting' => $data
         ]);
     }
 
     public function settingUpdate(Request $request)
     {
-        // dd($request->all());
         $update = [
             'alamat' => $request->address,
             'telepon' => $request->telephone,
@@ -872,26 +868,9 @@ class ManageController extends Controller
             'bidang-perindustrian' => $request->bidang_perindustrian,
             'bidang-perdagangan' => $request->bidang_perdagangan,
             'uptd-pasar' => $request->uptd_pasar,
-            // 'logo-utama' => $request->logo
         ];
-        // foreach ($update as $key => $value) {
-        //     $setting = Setting::where('slug', $key)->first();
-        //     if ($key === null) {
-        //         continue;
-        //     }
-        //     // if ($key === 'logo-utama' ) { 
-
-        //     //     $setting->clearMediaCollection($setting->value);
-        //     //     // $setting->addMediaFromRequest('logo')->usingName('Logo Utama')->toMediaCollection('logo-utama');
-        //     //     $setting->addMediaFromRequest('logo')->usingName('Logo Utama')->usingFileName('Logo DISKOPUKMPERINDAG Kab. Sumenep.png')->toMediaCollection($setting->value);
-        //     //     continue;
-        //     // }
-        //     $setting->update([
-        //         'value' => $value
-        //     ]);
-        // }
         foreach ($update as $key => $value) {
-            if ($value !== null) { // Hanya update jika ada nilai di request
+            if ($value !== null) {
                 $setting = Setting::where('slug', $key)->first();
                 if ($setting) {
                     $setting->update(['value' => $value]);
