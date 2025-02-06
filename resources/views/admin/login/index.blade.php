@@ -41,9 +41,9 @@
                 <form action="{{ route('admin.login.submit') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="email" class="form-label fw-semibold">Email</label>
-                        <input type="email" class="form-control" id="email" name="email"
-                            placeholder="masukkan email anda" required>
+                        <label for="username" class="form-label fw-semibold">Username</label>
+                        <input type="text" class="form-control" id="username" name="username"
+                            placeholder="masukkan username anda" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label fw-semibold">Password</label>

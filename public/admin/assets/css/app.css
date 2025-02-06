@@ -741,7 +741,7 @@
     left: 0;
 }
 #sidebar:not(.active) .sidebar-wrapper {
-    left: -300px;
+    left: -350px;
 }
 #sidebar:not(.active) ~ #main {
     margin-left: 0;
@@ -872,6 +872,8 @@
     .sidebar-wrapper .sidebar-toggler.x {
         display: block;
     }
+    .sidebar-wrapper {
+        width: 350px;}
 }
 .nav-pills .nav-link.active {
     box-shadow: 0 2px 10px rgba(67, 94, 190, 0.5);
@@ -1145,6 +1147,7 @@
         float: left;
         margin-bottom: 0.4rem;
     }
+    
 }
 .burger-btn {
     display: none;

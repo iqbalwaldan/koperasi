@@ -1,6 +1,15 @@
 $(document).ready(function () {
     var owl = $(".owl-carousel");
+    var owlVideo = $(".owl-carousel-video");
 
+    owlVideo.owlCarousel({
+        loop: true, // Tidak melakukan loop otomatis
+        margin: 10,
+        items: 1,
+        autoplay: false, // Matikan autoplay agar tidak bergerak sendiri
+        dots: false, // Tambahkan navigasi titik
+        // nav: true, // Tambahkan tombol navigasi
+    });
     owl.owlCarousel({
         loop: true,
         margin: 10,
@@ -9,15 +18,20 @@ $(document).ready(function () {
         autoplayTimeout: 5000,
         autoplayHoverPause: true,
     });
-
     $(".main__hot-news-next").click(function () {
         owl.trigger("next.owl.carousel");
-        console.log("next");
     });
 
     $(".main__hot-news-prev").click(function () {
         owl.trigger("prev.owl.carousel");
-        console.log("prev");
+    });
+
+    $(".main__video-next").click(function () {
+        owlVideo.trigger("next.owl.carousel");
+    });
+
+    $(".main__video-prev").click(function () {
+        owlVideo.trigger("prev.owl.carousel");
     });
 
     let editorInstance;

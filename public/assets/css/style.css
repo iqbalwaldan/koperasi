@@ -573,8 +573,46 @@ body {
     display: none;
 }
 
+.video__container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.7rem;
+}
+
+.video__article{
+    height: 560px;
+}
+.video__article iframe{
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.main__video-prev,
+.main__video-next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    font-size: 1.2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: var(--WHITE-COLOR);
+    box-shadow: none;
+    border: none;
+    outline: none;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+}
+
 .main__hot-news-prev,
-.main__hot-news-next {
+.main__hot-news-next
+{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -594,29 +632,35 @@ body {
     z-index: 2;
 }
 
-.main__hot-news-prev {
+.main__hot-news-prev ,
+.main__video-prev {
     color: var(--LINK-HOVER-LIGHT-COLOR);
     left: 10px;
 }
 
-.main__hot-news-next {
+.main__hot-news-next ,
+.main__video-next {
     color: var(--LINK-HOVER-LIGHT-COLOR);
     right: 10px;
     transform: translateX(20px);
 }
 
 .main__hot-news-prev:hover,
-.main__hot-news-next:hover {
+.main__hot-news-next:hover,
+.main__video-prev:hover,
+.main__video-next:hover {
     background-color: var(--PRIMARY-COLOR);
     color: var(--LIGHT-COLOR);
 }
 
-.main__hot-news-card:hover .main__hot-news-prev {
+.main__hot-news-card:hover .main__hot-news-prev,
+.video__container:hover .main__video-prev {
     opacity: 1;
     transform: translateX(0);
 }
 
-.main__hot-news-card:hover .main__hot-news-next {
+.main__hot-news-card:hover .main__hot-news-next,
+.video__container:hover .main__video-next {
     opacity: 1;
     transform: translateX(0);
 }
@@ -625,12 +669,14 @@ body {
 
 /* START CSS Program */
 
+.main__video,
 .main__program {
     margin: 1rem 0 0 0;
     padding: 1rem;
     border-radius: 0.7rem;
 }
 
+.main__video h2,
 .main__program h2 {
     font-family: var(--FF-SECONDARY);
     font-size: 1.5rem;
@@ -639,6 +685,7 @@ body {
     color: var(--PRIMARY-COLOR);
 }
 
+.main__video p,
 .main__program p {
     text-align: center;
 }

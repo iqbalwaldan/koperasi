@@ -6,15 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Models\MemberDetail;
 use App\Models\MemberTag;
 use App\Models\NewsDetail;
+use App\Models\NewsTag;
 use App\Models\ProfileDetail;
 use App\Models\ProfileTag;
 use App\Models\PublicationDetail;
 use App\Models\PublicationTag;
 use App\Models\Setting;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Permission\Models\Role;
 
 class ManageController extends Controller
 {
@@ -207,7 +211,7 @@ class ManageController extends Controller
             // return redirect()->back()->withInput()->with('error', 'Gagal memperbarui struktur keanggotaan!');
         }
     }
-    
+
     public function memberStructureDestroy($id)
     {
         try {
@@ -222,7 +226,6 @@ class ManageController extends Controller
             DB::rollBack();
             return response()->json(['message' => 'Gagal menghapus struktur keanggotaan!'], 500);
         }
-
     }
 
 
@@ -703,12 +706,17 @@ class ManageController extends Controller
     public function dataCreate($slug)
     {
         $tag = PublicationTag::where('slug', $slug)->first();
-        $data = PublicationDetail::where('publication_tag_id', $tag->id)->get();
+        $userRole = auth()->user()->roles->first()->name;
+        if ($userRole === 'super-admin') {
+            $categories = PublicationDetail::where('publication_tag_id', $tag->id)->get();
+        } else {
+            $categories = PublicationDetail::where('publication_tag_id', $tag->id)->where('slug', $userRole)->get();
+        }
         return view('admin.manage-data.create', [
             'title' => 'Tambah Data ' . Str::title($slug),
             'active' => $slug,
             'tag' => Str::title($slug),
-            'categories' => $data
+            'categories' => $categories
         ]);
     }
 
@@ -743,7 +751,12 @@ class ManageController extends Controller
     {
         $media = Media::findOrFail($id);
         $model = PublicationDetail::with('publicationTag')->where('id', $media->model_id)->first();
-        $categories = PublicationDetail::where('publication_tag_id', $model->publication_tag_id)->get();
+        $userRole = auth()->user()->roles->first()->name;
+        if ($userRole === 'super-admin') {
+            $categories = PublicationDetail::where('publication_tag_id', $model->publication_tag_id)->get();
+        } else {
+            $categories = PublicationDetail::where('publication_tag_id', $model->publication_tag_id)->where('slug', $userRole)->get();
+        }
         $data = [
             'id' => $media->id,
             'name' => $media->name,
@@ -751,7 +764,7 @@ class ManageController extends Controller
             'file_url' => $media->getUrl(),
         ];
         return view('admin.manage-data.edit', [
-            'title' => 'Tambah Data ' . $model->publicationTag->name,
+            'title' => 'Edit Data ' . $model->publicationTag->name,
             'active' => $model->publicationTag->slug,
             'tag' => $model->publicationTag->name,
             'data' => $data,
@@ -770,6 +783,14 @@ class ManageController extends Controller
 
             $media = Media::findOrFail($id);
             $model = PublicationDetail::with('publicationTag')->where('id', $media->model_id)->first();
+
+            $userRole = auth()->user()->roles->first()->name;
+
+            if ($userRole != 'super-admin') {
+                if ($userRole !== $model->slug) {
+                    return redirect()->back()->with('error', 'Anda tidak memiliki akses!');
+                }
+            }
 
             if ($media->file_name !== $request->name) {
                 $file_name = Str::slug('file_' . $request->name) . '-' . time();
@@ -808,6 +829,13 @@ class ManageController extends Controller
     {
         try {
             $media = Media::findOrFail($id);
+            $userRole = auth()->user()->roles->first()->name;
+            if ($userRole != 'super-admin') {
+                $model = PublicationDetail::with('publicationTag')->where('id', $media->model_id)->first();
+                if ($userRole !== $model->slug) {
+                    return response()->json(['message' => 'Anda tidak memiliki akses!'], 403);
+                }
+            }
             $media->delete();
             return response()->json(['message' => 'Data berhasil dihapus!'], 200);
         } catch (\Exception $e) {
@@ -818,7 +846,12 @@ class ManageController extends Controller
     public function service()
     {
         $showBasicLawTag = PublicationTag::where('slug', 'layanan')->first();
-        $showBasicLawDetail = PublicationDetail::with('publicationTag')->where('publication_tag_id', $showBasicLawTag->id)->get();
+        $userRole = auth()->user()->roles->first()->name;
+        if ($userRole === 'super-admin') {
+            $showBasicLawDetail = PublicationDetail::with('publicationTag')->where('publication_tag_id', $showBasicLawTag->id)->get();
+        } else {
+            $showBasicLawDetail = PublicationDetail::with('publicationTag')->where('publication_tag_id', $showBasicLawTag->id)->where('slug', $userRole)->get();
+        }
         $data = [];
         foreach ($showBasicLawDetail as $item) {
             $mediaFiles = $item->getMedia($item->slug)->map(function ($media) use ($item) {
@@ -879,5 +912,225 @@ class ManageController extends Controller
         }
 
         return redirect()->route('admin.manage-setting.edit')->with('success', 'Pengaturan berhasil diperbarui!');
+    }
+
+    public function settingUser()
+    {
+        $users = User::with('roles')->get()->map(function ($user) {
+            return [
+                'name' => $user->name,
+                'username' => $user->username,
+                'role' => $user->getRoleNames()[0],
+            ];
+        });
+        return view('admin.manage-setting-user.index', [
+            'title' => 'Pengaturan Pengguna',
+            'active' => 'pengaturan-pengguna',
+            'users' => $users
+        ]);
+    }
+    public function settingUserCreate()
+    {
+        $roles = Role::get()->map(function ($role) {
+            return [
+                'name' => $role->name,
+            ];
+        });
+        return view('admin.manage-setting-user.create', [
+            'title' => 'Tambah Pengguna',
+            'active' => 'pengaturan-pengguna',
+            'roles' => $roles
+        ]);
+    }
+
+    public function settingUserStore(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => 'required',
+                'username' => 'required',
+                'role' => 'required',
+            ]);
+
+            $user = User::create([
+                'name' => $request->name,
+                'username' => $request->username,
+                // 'password' => Hash::make($request->password),
+                'password' => bcrypt($request->password),
+            ]);
+
+            $user->assignRole($request->role);
+
+            return redirect()->route('admin.manage-setting-user.index')->with('success', 'Pengguna berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan pengguna!');
+        }
+    }
+
+    public function settingUserEdit($username)
+    {
+        try {
+            $user = User::where('username', $username)->get()->map(function ($user) {
+                return [
+                    'name' => $user->name,
+                    'username' => $user->username,
+                    'role' => $user->getRoleNames()[0],
+                ];
+            });
+            $roles = Role::get()->map(function ($role) {
+                return [
+                    'name' => $role->name,
+                ];
+            });
+
+            return view('admin.manage-setting-user.edit', [
+                'title' => 'Edit Pengguna',
+                'active' => 'pengaturan-pengguna',
+                'user' => $user[0],
+                'roles' => $roles
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menampilkan pengguna!');
+        }
+    }
+
+    public function settingUserUpdate(Request $request, $username)
+    {
+        try {
+            $request->validate([
+                'name' => 'required',
+                'username' => 'required',
+                'role' => 'required',
+            ]);
+
+            $user = User::where('username', $username)->first();
+            $user->update([
+                'name' => $request->name,
+                'username' => $request->username,
+            ]);
+            if ($request->password !== null) {
+                $user->update([
+                    'password' => bcrypt($request->password),
+                ]);
+            }
+            $user->syncRoles($request->role);
+
+            if (Auth::user()->username === $username) {
+                Auth::logout();
+            }
+
+            return redirect()->route('admin.manage-setting-user.index')->with('success', 'Pengguna berhasil diperbarui!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Gagal memperbarui pengguna!');
+        }
+    }
+
+    public function settingUserDestroy($username)
+    {
+        try {
+            $user = User::where('username', $username)->first();
+            $user->delete();
+            return response()->json(['message' => 'Pengguna berhasil dihapus!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal menghapus pengguna!'], 500);
+        }
+    }
+
+    public function video()
+    {
+        try {
+            $tagId = NewsTag::where('slug', 'galeri-video')->first()->id;
+            $videos = NewsDetail::where('news_tag_id', $tagId)->orderBy('created_at', 'DESC')->get()->map(function ($item) {
+                return [
+                    'slug' => $item->slug,
+                    'title' => $item->title,
+                    'url' => $item->description,
+                ];
+            });
+
+            return view('admin.manage-video.index', [
+                'title' => 'Manajemen Video',
+                'active' => 'video',
+                'videos' => $videos
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menampilkan video!');
+        }
+    }
+
+    public function videoCreate()
+    {
+        return view('admin.manage-video.create', [
+            'title' => 'Tambah Video',
+            'active' => 'video',
+        ]);
+    }
+
+    public function videoStore(Request $request)
+    {
+        try {
+            $request->validate([
+                'video_title' => 'required',
+                'video_url' => 'required',
+            ]);
+
+            NewsDetail::create([
+                'news_tag_id' => 4,
+                'slug' => Str::slug($request->video_title) . '-' . time(),
+                'title' => $request->video_title,
+                'description' => $request->video_url,
+                'date_news' => now(),
+                'author' => auth()->user()->name,
+            ]);
+
+            return redirect()->route('admin.manage-video.index')->with('success', 'Video berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan video!');
+        }
+    }
+    
+    public function videoEdit($slug){
+        $video = NewsDetail::where('slug', $slug)->get()->map(function ($item) {
+            return [
+                'slug' => $item->slug,
+                'title' => $item->title,
+                'url' => $item->description,
+            ];
+        });
+        return view('admin.manage-video.edit', [
+            'title' => 'Edit Video',
+            'active' => 'video',
+            'video' => $video
+        ]);
+    }
+
+    public function videoUpdate(Request $request){
+        try {
+            $request->validate([
+                'video_title' => 'required',
+                'video_url' => 'required',
+            ]);
+
+            $video = NewsDetail::where('slug', $request->slug)->first();
+            $video->update([
+                'title' => $request->video_title,
+                'description' => $request->video_url,
+            ]);
+
+            return redirect()->route('admin.manage-video.index')->with('success', 'Video berhasil diperbarui!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Gagal memperbarui video!');
+        }
+    }
+
+    public function videoDestroy($slug)
+    {
+        try {
+            $newsDetail = NewsDetail::where('slug', $slug)->first();
+            $newsDetail->delete();
+            return response()->json(['message' => 'Pengguna berhasil dihapus!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal menghapus pengguna!'], 500);
+        }
     }
 }

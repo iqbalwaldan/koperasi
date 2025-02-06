@@ -14,14 +14,17 @@ class AuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('username', 'password');
 
         if (auth()->attempt($credentials)) {
+            $user = auth()->user();
+            if($user->roles->first()->name != 'super-admin'){
+                return redirect()->route('admin.manage-service.index');
+            }
             return redirect()->route('admin.manage-press-release.index');
-            // dd('login');
         }
 
-        return redirect()->back()->with('error', 'Email atau password salah');
+        return redirect()->back()->with('error', 'Username atau password salah');
     }
 
     public function logout()

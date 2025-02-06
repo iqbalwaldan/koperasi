@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\NewsDetail;
+use App\Models\NewsTag;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -35,6 +36,17 @@ class DashboardController extends Controller
                 return $news;
             });
 
+        $videosTag = NewsTag::where('slug', 'galeri-video')->first();
+        $videos = NewsDetail::where('news_tag_id', $videosTag->id)
+            ->orderBy('date_news', 'desc')
+            ->take(5)
+            ->get()
+            ->map(function ($news) {
+                return[
+                    'url' => $news->description,
+                ];
+            });
+
         $pressReleases = NewsDetail::where('news_tag_id', 1)
             ->orderBy('date_news', 'desc')
             ->take(3)
@@ -63,6 +75,7 @@ class DashboardController extends Controller
             'list_article_1' => $pressReleases,
             'title_list_article_2' => 'Kegiatan',
             'list_article_2' => $activity,
+            'videos' => $videos,
         ]);
     }
 }

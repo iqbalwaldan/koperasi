@@ -18,6 +18,7 @@ class NewsTagSeeder extends Seeder
             // ['Berita Media', 'berita-media'],
             ['Galeri Foto', 'galeri-foto'],
             ['Kegiatan', 'kegiatan'],
+            ['Galeri Video', 'galeri-video'],
         ];
 
         foreach ($tags as $tag) {

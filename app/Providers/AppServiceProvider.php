@@ -39,5 +39,6 @@ class AppServiceProvider extends ServiceProvider
                 'datas' => $data
             ]);
         });
+        require_once app_path('helpers.php');
     }
 }

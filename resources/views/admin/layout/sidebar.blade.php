@@ -15,6 +15,7 @@
             </div>
             <div class="sidebar-menu">
                 <ul class="menu">
+                    @if (auth()->user()->getRoleNames()[0] == 'super-admin')
                     <li class="sidebar-title">Profil</li>
                     <li class="sidebar-item {{ $active == 'struktur-organisasi' ? 'active' : '' }}">
                         <a href="{{ route('admin.manage-profile.edit', ['slug' => 'struktur-organisasi']) }}"
@@ -63,6 +64,12 @@
                             <span>Galeri</span>
                         </a>
                     </li>
+                    <li class="sidebar-item {{ $active == 'video' ? 'active' : '' }}">
+                        <a href="{{ route('admin.manage-video.index') }}" class='sidebar-link'>
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Video</span>
+                        </a>
+                    </li>
                     <li class="sidebar-title">File</li>
                     <li class="sidebar-item {{ $active == 'regulasi' ? 'active' : '' }}" has-sub>
                         <a href="{{ route('admin.manage-data.index', ['slug' => 'regulasi']) }}" class="sidebar-link">
@@ -89,6 +96,21 @@
                             <span>Pengaturan Umum</span>
                         </a>
                     </li>
+                    <li class="sidebar-item {{ $active == 'pengaturan-pengguna' ? 'active' : '' }}" has-sub>
+                        <a href="{{ route('admin.manage-setting-user.index') }}" class="sidebar-link">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Pengaturan Pengguna</span>
+                        </a>
+                    </li>
+                    @else
+                    <li class="sidebar-title">File</li>
+                    <li class="sidebar-item {{ $active == 'layanan' ? 'active' : '' }}" has-sub>
+                        <a href="{{ route('admin.manage-service.index') }}" class="sidebar-link">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Layanan</span>
+                        </a>
+                    </li>
+                    @endif
                 </ul>
             </div>
         </div>

@@ -18,8 +18,8 @@
                     <h3>Bidang Perdagangan</h3>
                     {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
                     <div class="overlay">
-                        {{-- <h3>Bidang Perdagangan</h3> --}}
-                        <p>Kegiatan jual beli barang atau jasa yang berfungsi sebagai penghubung antara produsen dan konsumen untuk memenuhi kebutuhan pasar.</p>
+                        <h3>Bidang Perdagangan</h3>
+                        {{-- <p>Kegiatan jual beli barang atau jasa yang berfungsi sebagai penghubung antara produsen dan konsumen untuk memenuhi kebutuhan pasar.</p> --}}
                         <a class="program-link" href="{{ route('service-detail', ['slug' => 'bidang-perdagangan']) }}">Lihat Program</a>
                     </div>
                 </div>
@@ -30,8 +30,8 @@
                     <h3>Bidang Perindustrian</h3>
                     {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
                     <div class="overlay">
-                        {{-- <h3>Bidang Perindustrian</h3> --}}
-                        <p>Proses pengolahan bahan mentah menjadi barang jadi atau setengah jadi dengan memanfaatkan teknologi dan sumber daya.</p>
+                        <h3>Bidang Perindustrian</h3>
+                        {{-- <p>Proses pengolahan bahan mentah menjadi barang jadi atau setengah jadi dengan memanfaatkan teknologi dan sumber daya.</p> --}}
                         <a class="program-link" href="{{ route('service-detail', ['slug' => 'bidang-perindustrian']) }}">Lihat Program</a>
                     </div>
                 </div>
@@ -42,8 +42,8 @@
                     <h3>Bidang Pemberdayaan Koperasi dan Usaha Mikro</h3>
                     {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
                     <div class="overlay">
-                        {{-- <h3>Bidang Pemberdayaan Koperasi dan Usaha Mikro</h3> --}}
-                        <p>Usaha kecil dan menengah yang berperan penting dalam mendukung ekonomi lokal melalui penciptaan lapangan kerja dan inovasi.</p>
+                        <h3>Bidang Pemberdayaan Koperasi dan Usaha Mikro</h3>
+                        {{-- <p>Usaha kecil dan menengah yang berperan penting dalam mendukung ekonomi lokal melalui penciptaan lapangan kerja dan inovasi.</p> --}}
                         <a class="program-link" href="{{ route('service-detail', ['slug' => 'bidang-pemberdayaan-koperasi-dan-usaha-mikro']) }}">Lihat Program</a>
                     </div>
                 </div>
@@ -54,8 +54,8 @@
                     <h3>Bidang Perizinan, Kelembagaan, Pengawasan dan Pemeriksaan</h3>
                     {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
                     <div class="overlay">
-                        {{-- <h3>Bidang Perizinan, Kelembagaan, Pengawasan dan Pemeriksaan</h3> --}}
-                        <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p>
+                        <h3>Bidang Perizinan, Kelembagaan, Pengawasan dan Pemeriksaan</h3>
+                        {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
                         <a class="program-link" href="{{ route('service-detail', ['slug' => 'bidang-perizinan-kelembagaan-pengawasan-dan-pemeriksaan']) }}">Lihat Program</a>
                     </div>
                 </div>
@@ -66,8 +66,8 @@
                     <h3>UPTD Pasar</h3>
                     {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
                     <div class="overlay">
-                        {{-- <h3>UPTD Pasar</h3> --}}
-                        <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p>
+                        <h3>UPTD Pasar</h3>
+                        {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
                         <a class="program-link" href="{{ route('service-detail', ['slug' => 'uptd-pasar']) }}">Lihat Program</a>
                     </div>
                 </div>
@@ -78,8 +78,8 @@
                     <h3>UPTD Metrologi Legal</h3>
                     {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
                     <div class="overlay">
-                        {{-- <h3>UPTD Metrologi Legal</h3> --}}
-                        <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p>
+                        <h3>UPTD Metrologi Legal</h3>
+                        {{-- <p>Merupkan sebuah program untuk membantu pelaku usaha dalam proses perdaganan</p> --}}
                         <a class="program-link" href="{{ route('service-detail', ['slug' => 'uptd-metrologi-legal']) }}">Lihat Program</a>
                     </div>
                 </div>
