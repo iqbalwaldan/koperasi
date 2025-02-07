@@ -4,8 +4,6 @@
     <main class="main">
         <div class="media__container">
             <section class="card p-3 my-3 overflow-hidden rounded-3">
-                
-                
                 <table class="publication__table">
                     <thead>
                         <tr>
@@ -14,21 +12,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (!$files->count() == 0)
-                            @foreach ($files as $index => $file)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td><a href="{{ $file['file_url'] }}">{{ $file['name'] }}</a></td>
-                                    {{-- <td>{{ $file['category'] }}</td> --}}
-                                </tr>
-                            @endforeach
-                        @else
-                            <tr>
-                                <td colspan="2" class="text-center">Tidak ada file</td>
-                            </tr>
-                        @endif
+                        @if ($files->isEmpty())
+                <tr>
+                    <td colspan="3" class="text-center">Tidak ada data</td>
+                </tr>
+            @else
+                @foreach ($files as $index => $file)
+                    <tr>
+                        <td>{{ ($files->currentPage() - 1) * $files->perPage() + $index + 1 }}</td>
+                        <td><a href="{{ $file['file_url'] }}">{{ $file['name'] }}</a></td>
+                    </tr>
+                @endforeach
+            @endif
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-end mt-4">
+                    {{ $files->links('vendor.pagination.bootstrap-5') }}
+                </div>
             </section>
         </div>
     </main>

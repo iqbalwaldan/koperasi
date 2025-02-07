@@ -10,7 +10,12 @@ class AnnouncementController extends Controller
 {
     public function activity()
     {
-        $activitys = NewsDetail::where('news_tag_id', 3)->orderBy('date_news', 'DESC')->orderBy('created_at', 'DESC')->get()->map(function ($news) {
+        $activitys = NewsDetail::where('news_tag_id', 3)
+        ->orderBy('date_news', 'DESC')
+        ->orderBy('created_at', 'DESC')
+        ->paginate(10);
+
+        $activitys->getCollection()->transform(function ($news) {
             $news->image_url = $news->getFirstMediaUrl('kegiatan');
             return $news;
         });

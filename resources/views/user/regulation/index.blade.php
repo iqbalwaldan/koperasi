@@ -12,20 +12,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (!empty($showBasicLaws))
-                            @foreach ($showBasicLaws as $index => $basicLaw)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td><a href="{{ $basicLaw['url'] }}">{{ $basicLaw['name'] }}</a></td>
-                                </tr>
-                            @endforeach
-                        @else
+                        @if ($showBasicLaws->isEmpty())
                             <tr>
                                 <td colspan="2" class="text-center">Tidak ada data</td>
                             </tr>
+                        @else
+                            @foreach ($showBasicLaws as $index => $basicLaw)
+                                <tr>
+                                    <td>{{ ($showBasicLaws->currentPage() - 1) * $showBasicLaws->perPage() + $index + 1 }}
+                                    </td>
+                                    <td><a href="{{ $basicLaw['url'] }}">{{ $basicLaw['name'] }}</a></td>
+                                </tr>
+                            @endforeach
                         @endif
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-end mt-4">
+                    {{ $showBasicLaws->links('vendor.pagination.bootstrap-5') }}
+                </div>
             </section>
         </div>
     </main>

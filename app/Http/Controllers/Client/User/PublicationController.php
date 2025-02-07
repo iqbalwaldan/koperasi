@@ -7,18 +7,23 @@ use App\Models\NewsDetail;
 use App\Models\PublicationDetail;
 use App\Models\PublicationTag;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PublicationController extends Controller
 {
     public function pressRelease()
     {
-        $pressReleases = NewsDetail::where('news_tag_id', 1)->orderBy('date_news', 'DESC')->orderBy('created_at', 'DESC')->get()->map(function ($news) {
+        $pressReleases = NewsDetail::where('news_tag_id', 1)
+            ->orderBy('date_news', 'DESC')
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
+
+        $pressReleases->getCollection()->transform(function ($news) {
             $news->description = strip_tags($news->description);
-
             $news->image_url = $news->getFirstMediaUrl('siaran-pers');
-
             return $news;
         });
+
         return view('user.publication.press-release.index', [
             'title' => 'Siaran Pers',
             'pressReleases' => $pressReleases
@@ -41,7 +46,6 @@ class PublicationController extends Controller
             ->map(function ($news) {
                 $news->description = strip_tags($news->description);
                 $news->image_url = $news->getFirstMediaUrl('siaran-pers');
-
                 return $news;
             });
 
@@ -66,9 +70,9 @@ class PublicationController extends Controller
         ]);
     }
 
+
     public function information(Request $request)
     {
-
         $tag = PublicationTag::where('slug', 'informasi')->first();
         $informations = PublicationDetail::where('publication_tag_id', $tag->id)->get();
 
@@ -91,6 +95,7 @@ class PublicationController extends Controller
         }
 
         $query = collect($data);
+
         if ($name) {
             $query = $query->filter(function ($item) use ($name) {
                 return str_contains(strtolower($item['name']), strtolower($name));
@@ -103,16 +108,26 @@ class PublicationController extends Controller
             });
         }
 
-        $informations = $query;
-
+        // Pagination
+        $perPage = 20;
+        $currentPage = request()->get('page', 1);
+        $pagedData = $query->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        $informations = new LengthAwarePaginator(
+            $pagedData,
+            $query->count(),
+            $perPage,
+            $currentPage,
+            [
+                'path' => request()->url(),
+                'query' => request()->query(), 
+            ]
+        );
 
         return view('user.publication.information.index', [
             'title' => 'Informasi',
             'informations' => $informations
         ]);
     }
-
-
 
     public function showInformation($slug)
     {
@@ -124,23 +139,23 @@ class PublicationController extends Controller
         }
 
         $pressReleases = NewsDetail::where('news_tag_id', 1)
-            ->orderBy('date_news', 'desc')  // Urutkan berdasarkan news_date dari yang terbaru
-            ->take(3)  // Ambil hanya 3 berita terbaru
+            ->orderBy('date_news', 'desc')  
+            ->take(3)  
             ->get()
             ->map(function ($news) {
-                $news->description = strip_tags($news->description);  // Bersihkan tag HTML
-                $news->image_url = $news->getFirstMediaUrl('siaran-pers');  // Ambil URL media pertama
+                $news->description = strip_tags($news->description);  
+                $news->image_url = $news->getFirstMediaUrl('siaran-pers');  
 
                 return $news;
             });
 
         $activity = NewsDetail::where('news_tag_id', 3)
-            ->orderBy('date_news', 'desc')  // Urutkan berdasarkan news_date dari yang terbaru
-            ->take(3)  // Ambil hanya 3 berita terbaru
+            ->orderBy('date_news', 'desc')  
+            ->take(3) 
             ->get()
             ->map(function ($news) {
-                $news->description = strip_tags($news->description);  // Bersihkan tag HTML
-                $news->image_url = $news->getFirstMediaUrl('kegiatan');  // Ambil URL media pertama
+                $news->description = strip_tags($news->description);  
+                $news->image_url = $news->getFirstMediaUrl('kegiatan');
 
                 return $news;
             });
@@ -157,15 +172,21 @@ class PublicationController extends Controller
 
     public function photoGallery()
     {
-        $photoGallerys = NewsDetail::where('news_tag_id', 2)->orderBy('date_news', 'DESC')->get()->map(function ($news) {
-            // Bersihkan tag HTML dari deskripsi
+        $photoGallerys = NewsDetail::where('news_tag_id', 2)
+            ->orderBy('date_news', 'DESC')
+            ->paginate(12); 
+
+        $photoGallerys->getCollection()->transform(function ($news) {
             $news->description = strip_tags($news->description);
-
-            // Ambil URL dari media pertama dalam koleksi "siaran-pers"
             $news->image_url = $news->getFirstMediaUrl('galeri-foto');
-
             return $news;
         });
+
+        return view('user.publication.photo-gallery.index', [
+            'title' => 'Galeri Foto',
+            'photoGallerys' => $photoGallerys
+        ]);
+
         return view('user.publication.photo-gallery.index', [
             'title' => 'Geleri Foto',
             'photoGallerys' => $photoGallerys
@@ -175,14 +196,12 @@ class PublicationController extends Controller
     public function showPhotoGallery($slug)
     {
         $showPhotoGallery = NewsDetail::with('newsTag')->where('slug', $slug)->first();
-
         if ($showPhotoGallery) {
             $showPhotoGallery->news_tag_name = $showPhotoGallery->newsTag->name;
             $showPhotoGallery->image_url = $showPhotoGallery->getMedia('galeri-foto')->map(function ($media) {
                 return $media->getUrl();
             });
         }
-        // dd($showPhotoGallery);
         return view('user.detail.gallery.index', [
             'title' => 'Geleri',
             'showPhotoGallery' => $showPhotoGallery

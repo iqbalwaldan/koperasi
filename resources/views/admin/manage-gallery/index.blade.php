@@ -17,12 +17,12 @@
             <section class="section">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Data Berita</h4>
+                        <h4>Data Galeri Foto</h4>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end mb-3">
                             <a href="{{ route('admin.manage-gallery.create') }}" class="btn btn-success">
-                                Tambah Berita
+                                Tambah Galeri Foto
                             </a>
                         </div>
                         <table class="table table-striped" id="table1">

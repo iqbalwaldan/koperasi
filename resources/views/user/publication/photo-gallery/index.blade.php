@@ -22,6 +22,9 @@
                     </article>
                 @endforeach
             </div>
+            <div class="d-flex justify-content-end mt-4">
+                {{ $photoGallerys->links('vendor.pagination.bootstrap-5') }}
+            </div>
         </section>
     </main>
 @endsection

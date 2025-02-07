@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Setting;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -40,5 +41,6 @@ class AppServiceProvider extends ServiceProvider
             ]);
         });
         require_once app_path('helpers.php');
+        Paginator::useBootstrapFive();
     }
 }
