@@ -43,6 +43,28 @@
                                                     placeholder="Masukkan Talefon Kantor" value="{{ $setting['telepon'] }}">
                                             </div>
 
+                                            <h5>Tautan</h5>
+                                            <div class="form-group">
+                                                <label for="siska_perbapo">Siska Perbapo</label>
+                                                <input type="text" class="form-control" id="siska_perbapo" name="siska_perbapo"
+                                                placeholder="Masukkan Talefon Bidang" value="{{ $setting['siska-perbapo'] }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sp2kp">SP2KP</label>
+                                                <input type="text" class="form-control" id="sp2kp" name="sp2kp"
+                                                placeholder="Masukkan Talefon Bidang" value="{{ $setting['sp2kp'] }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="kabupaten_sumenep">Kabupaten Sumenep</label>
+                                                <input type="text" class="form-control" id="kabupaten_sumenep" name="kabupaten_sumenep"
+                                                placeholder="Masukkan Talefon Bidang" value="{{ $setting['kabupaten-sumenep'] }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="web_gis">Web Gis Pasar Sumenep</label>
+                                                <input type="text" class="form-control" id="web_gis" name="web_gis"
+                                                placeholder="Masukkan Talefon Bidang" value="{{ $setting['web-gis'] }}">
+                                            </div>
+
                                             <h5>Kontak</h5>
                                             <div class="form-group">
                                                 <label for="bidang_perizinan_kelembagaan_pengawasan_dan_pemeriksaan">Bidang Perizinan Kelembagaan Pengawasan dan Pemeriksaan</label>

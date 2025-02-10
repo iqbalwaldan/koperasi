@@ -15,3 +15,12 @@
 .nav-link.active.bg-active {
     background-color: #31676b;
 }
+
+.sidebar-info{
+    color: white;
+}
+
+.sidebar-info p, .sidebar-info h5 {
+    color: white;
+    margin: 0;
+}

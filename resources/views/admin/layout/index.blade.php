@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/admin/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('admin/assets/images/favicon.svg') }}" type="image/x-icon">
 </head>
 

@@ -147,26 +147,26 @@
                     Ini merupakan referensi website yang masih berkaitan dengen website DISKOPUKMPERINDAG.
                 </p>
                 <div class="program-container">
-                    <a href="https://siskaperbapo.jatimprov.go.id/" class="program-list sm card border p-2">
+                    <a href="{{ $links['siska-perbapo']['value'] }}" class="program-list sm card border p-2">
                         <figure class="figure-link-list mb-2 p-4">
                             <img src="{{ asset('assets/img/siskaperbapo.png') }}" alt="" width="200px">
                         </figure>
                         <h3>Siska Perbapo</h3>
                     </a>
-                    <a href="https://sp2kp.kemendag.go.id/" class="program-list sm card border p-2">
+                    <a href="{{ $links['sp2kp']['value'] }}" class="program-list sm card border p-2">
                         <figure class="figure-link-list mb-2 p-4">
                             <img src="{{ asset('assets/img/sp2kp.png') }}" alt="" width="200px">
                         </figure>
                         <h3>SP2KP</h3>
                     </a>
-                    <a href="https://sumenepkab.go.id/" class="program-list sm card border p-2">
+                    <a href="{{ $links['kabupaten-sumenep']['value'] }}" class="program-list sm card border p-2">
                         <figure class="figure-link-list mb-2 p-4">
                             <img src="{{ asset('assets/img/Logo-Kabupaten-Sumenep-1.png') }}" alt=""
                                 width="200px">
                         </figure>
                         <h3>Kabupaten Sumenep</h3>
                     </a>
-                    <a href="https://siskaperbapo.jatimprov.go.id/" class="program-list sm card border p-2">
+                    <a href="{{ $links['web-gis']['value'] }}" class="program-list sm card border p-2">
                         <figure class="figure-link-list mb-2 p-4">
                             <img src="{{ asset('assets/img/Logo-Koperasi-Indonesia.png') }}" alt="" width="200px">
                         </figure>
