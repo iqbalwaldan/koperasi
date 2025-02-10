@@ -1,4 +1,4 @@
-<div id="sidebar" class="active">
+<div id="sidebar" class="collapsed">
     <div class="sidebar-wrapper active d-flex flex-column justify-content-between">
         <div>
             <div class="sidebar-header">
