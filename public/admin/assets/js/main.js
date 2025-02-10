@@ -5,7 +5,7 @@
 //     let sidebarItem = sidebarItems[i];
 // 	sidebarItems[i].querySelector('.sidebar-link').addEventListener('click', function(e) {
 //         e.preventDefault();
-        
+
 //         let submenu = sidebarItem.querySelector('.submenu');
 //         if( submenu.classList.contains('active') ) submenu.style.display = "block"
 
@@ -38,7 +38,6 @@
 
 // })
 
-
 // // Perfect Scrollbar Init
 // if(typeof PerfectScrollbar == 'function') {
 //     const container = document.querySelector(".sidebar-wrapper");
@@ -52,17 +51,21 @@
 
 // Fungsi untuk slide toggle
 function slideToggle(t, e, o) {
-    0 === t.clientHeight ? toggleElement(t, e, o, true) : toggleElement(t, e, o);
+    0 === t.clientHeight
+        ? toggleElement(t, e, o, true)
+        : toggleElement(t, e, o);
 }
 
 function toggleElement(t, e, o, show = false) {
     t.style.overflow = "hidden";
     if (show) t.style.display = "block";
-    
+
     let computedStyle = window.getComputedStyle(t),
         height = parseFloat(computedStyle.getPropertyValue("height")),
         paddingTop = parseFloat(computedStyle.getPropertyValue("padding-top")),
-        paddingBottom = parseFloat(computedStyle.getPropertyValue("padding-bottom")),
+        paddingBottom = parseFloat(
+            computedStyle.getPropertyValue("padding-bottom")
+        ),
         duration = e || 400;
 
     let heightStep = height / duration,
@@ -80,7 +83,8 @@ function toggleElement(t, e, o, show = false) {
         } else {
             t.style.height = height - heightStep * elapsed + "px";
             t.style.paddingTop = paddingTop - paddingTopStep * elapsed + "px";
-            t.style.paddingBottom = paddingBottom - paddingBottomStep * elapsed + "px";
+            t.style.paddingBottom =
+                paddingBottom - paddingBottomStep * elapsed + "px";
         }
 
         if (elapsed < duration) {
@@ -97,48 +101,54 @@ function toggleElement(t, e, o, show = false) {
 }
 
 // Sidebar menu toggle
-document.addEventListener('DOMContentLoaded', () => {
-    const sidebarItems = document.querySelectorAll('.sidebar-item.has-sub');
-    sidebarItems.forEach(item => {
-        const link = item.querySelector('.sidebar-link');
-        const submenu = item.querySelector('.submenu');
-        
-        link.addEventListener('click', (e) => {
+document.addEventListener("DOMContentLoaded", () => {
+    const sidebarItems = document.querySelectorAll(".sidebar-item.has-sub");
+    sidebarItems.forEach((item) => {
+        const link = item.querySelector(".sidebar-link");
+        const submenu = item.querySelector(".submenu");
+
+        link.addEventListener("click", (e) => {
             e.preventDefault();
-            submenu.classList.toggle('active');
+            submenu.classList.toggle("active");
             slideToggle(submenu, 300);
         });
     });
 
     // Perfect Scrollbar Init
-    if (typeof PerfectScrollbar === 'function') {
+    if (typeof PerfectScrollbar === "function") {
         const container = document.querySelector(".sidebar-wrapper");
         new PerfectScrollbar(container, { wheelPropagation: false });
     }
 
     // Scroll active item into view
-    const activeItem = document.querySelector('.sidebar-item.active');
+    const activeItem = document.querySelector(".sidebar-item.active");
     if (activeItem) {
         activeItem.scrollIntoView(false);
     }
 });
 
 // Burger button
-document.querySelector('.burger-btn').addEventListener('click', () => {
-    document.getElementById('sidebar').classList.toggle('active');
+document.querySelector(".burger-btn").addEventListener("click", () => {
+    document.getElementById("sidebar").classList.toggle("active");
 });
 
 // Hide sidebar
-document.querySelector('.sidebar-hide').addEventListener('click', () => {
-    document.getElementById('sidebar').classList.toggle('active');
+document.querySelector(".sidebar-hide").addEventListener("click", () => {
+    document.getElementById("sidebar").classList.toggle("active");
 });
 
 // Window resize handling
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
     const w = window.innerWidth;
     if (w < 1200) {
-        document.getElementById('sidebar').classList.remove('active');
+        document.getElementById("sidebar").classList.remove("active");
     } else {
-        document.getElementById('sidebar').classList.add('active');
+        document.getElementById("sidebar").classList.add("active");
     }
 });
+
+if (window.innerWidth >= 1200) {
+    sidebar.classList.add("active");
+} else {
+    sidebar.classList.remove("active");
+}
