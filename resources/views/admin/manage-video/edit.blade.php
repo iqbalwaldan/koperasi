@@ -38,7 +38,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="video_url">Link Video</label>
-                                                    <p style="margin:0; font-size: 0.8rem; color:red;">contoh : https://www.youtube.com/watch?v=RhVPFY86O4I</p>
+                                                    <p style="margin:0; font-size: 0.8rem; color:grey;">contoh : https://www.youtube.com/watch?v=RhVPFY86O4I</p>
                                                     <input type="text" id="video-url" class="form-control" name="video_url"
                                                         placeholder="Masukkan link video..." value="{{ $video[0]["url"] }}" required>
                                                 </div>

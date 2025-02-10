@@ -68,7 +68,7 @@
                                                     <label for="attachment" class="form-label">Lampiran
                                                         <br>
                                                         <span style="font-weight: lighter; font-size: 0.9rem">
-                                                            *max:1mb
+                                                            *max:5mb
                                                         </span>
                                                     </label>
                                                     <input class="form-control" type="file" id="attachment" multiple

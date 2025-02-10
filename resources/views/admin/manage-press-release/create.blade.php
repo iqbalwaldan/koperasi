@@ -58,7 +58,7 @@
                                                     <label for="image" class="form-label">Gambar
                                                         <br>
                                                         <span style="font-weight: lighter; font-size: 0.9rem">*format
-                                                            jpg,png,jpeg | max:1mb
+                                                            jpg,png,jpeg | max:5mb
                                                         </span>
                                                     </label>
                                                     <input class="form-control" type="file" id="image" name="image"

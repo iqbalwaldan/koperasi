@@ -52,7 +52,7 @@ class ManageController extends Controller
 
             if ($request->hasFile('image')) {
                 $request->validate([
-                    'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+                    'image' => 'image|mimes:jpeg,png,jpg|max:5120',
                 ]);
                 $profile->clearMediaCollection($slug);
                 $profile->addMediaFromRequest('image')->usingName($slug)->toMediaCollection($slug);
@@ -113,7 +113,7 @@ class ManageController extends Controller
                 'name' => 'required',
                 'position' => 'required',
                 'structure' => 'required',
-                'photo' => 'image|mimes:jpeg,png,jpg|max:3072',
+                'photo' => 'image|mimes:jpeg,png,jpg|max:5120',
             ]);
 
             $memberTag = MemberTag::where('slug', $request->structure)->first();
@@ -172,7 +172,7 @@ class ManageController extends Controller
                 'name' => 'required',
                 'position' => 'required',
                 'structure' => 'required',
-                // 'photo' => 'image|mimes:jpeg,png,jpg|max:3072',
+                // 'photo' => 'image|mimes:jpeg,png,jpg|max:5120',
             ]);
 
             $memberTag = MemberTag::where('slug', $request->structure)->first();
@@ -194,7 +194,7 @@ class ManageController extends Controller
             if ($request->hasFile('photo')) {
                 try {
                     $request->validate([
-                        'photo' => 'image|mimes:jpeg,png,jpg|max:3072',
+                        'photo' => 'image|mimes:jpeg,png,jpg|max:5120',
                     ]);
                 } catch (\Exception $e) {
                     DB::rollBack();
@@ -262,7 +262,7 @@ class ManageController extends Controller
                 'title' => 'required',
                 'date_news' => 'required',
                 'description' => 'required',
-                'image' => 'image|mimes:jpeg,png,jpg|max:1024',
+                'image' => 'image|mimes:jpeg,png,jpg|max:5120',
             ]);
 
             $slug = Str::slug($request->title) . '-' . time();
@@ -344,7 +344,7 @@ class ManageController extends Controller
         if ($request->hasFile('image')) {
             try {
                 $request->validate([
-                    'image' => 'image|mimes:jpeg,png,jpg|max:1024',
+                    'image' => 'image|mimes:jpeg,png,jpg|max:5120',
                 ]);
             } catch (\Exception $e) {
                 DB::rollBack();
@@ -402,8 +402,8 @@ class ManageController extends Controller
             $request->validate([
                 'title' => 'required',
                 'date_news' => 'required',
-                'image' => 'image|mimes:jpeg,png,jpg|max:1024',
-                'attachment.*' => 'file|mimes:jpeg,png,jpg|max:1024',
+                'image' => 'image|mimes:jpeg,png,jpg|max:5120',
+                'attachment.*' => 'file|mimes:jpeg,png,jpg|max:5120',
             ]);
 
             $slug = Str::slug($request->title) . '-' . time();
@@ -490,7 +490,7 @@ class ManageController extends Controller
         if ($request->hasFile('image')) {
             try {
                 $request->validate([
-                    'image' => 'image|mimes:jpeg,png,jpg|max:1024',
+                    'image' => 'image|mimes:jpeg,png,jpg|max:5120',
                 ]);
             } catch (\Exception $e) {
                 DB::rollBack();
@@ -502,7 +502,7 @@ class ManageController extends Controller
         if ($request->hasFile('attachment')) {
             try {
                 $request->validate([
-                    'attachment.*' => 'file|mimes:jpeg,png,jpg|max:1024',
+                    'attachment.*' => 'file|mimes:jpeg,png,jpg|max:5120',
                 ]);
             } catch (\Exception $e) {
                 DB::rollBack();
@@ -561,7 +561,7 @@ class ManageController extends Controller
                 'title' => 'required',
                 'date_news' => 'required',
                 'description' => 'required',
-                'image.*' => 'image|mimes:jpeg,png,jpg|max:1024',
+                'image.*' => 'image|mimes:jpeg,png,jpg|max:5120',
             ]);
 
             $slug = Str::slug($request->title) . '-' . time();
@@ -648,7 +648,7 @@ class ManageController extends Controller
         if ($request->hasFile('image')) {
             try {
                 $request->validate([
-                    'image.*' => 'image|mimes:jpeg,png,jpg|max:1024',
+                    'image.*' => 'image|mimes:jpeg,png,jpg|max:5120',
                 ]);
             } catch (\Exception $e) {
                 DB::rollBack();
@@ -1082,8 +1082,9 @@ class ManageController extends Controller
             return redirect()->back()->withInput()->with('error', 'Gagal menambahkan video!');
         }
     }
-    
-    public function videoEdit($slug){
+
+    public function videoEdit($slug)
+    {
         $video = NewsDetail::where('slug', $slug)->get()->map(function ($item) {
             return [
                 'slug' => $item->slug,
@@ -1098,7 +1099,8 @@ class ManageController extends Controller
         ]);
     }
 
-    public function videoUpdate(Request $request){
+    public function videoUpdate(Request $request)
+    {
         try {
             $request->validate([
                 'video_title' => 'required',
