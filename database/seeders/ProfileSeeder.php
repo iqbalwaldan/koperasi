@@ -14,7 +14,7 @@ class ProfileSeeder extends Seeder
     {
         $this->call([
             ProfileTagSeeder::class,
-            ProfileDetailSeeder::class,
+            // ProfileDetailSeeder::class,
         ]);
     }
 }

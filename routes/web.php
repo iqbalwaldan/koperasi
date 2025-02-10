@@ -33,7 +33,7 @@ Route::get('/profil/regulasi-tugas-dan-fungsi', [ProfileController::class, 'duti
 Route::get('/publikasi/siaran-pers', [PublicationController::class, 'pressRelease']);
 Route::get('/publikasi/siaran-pers/{slug}', [PublicationController::class, 'showPressRelease']);
 Route::get('/publikasi/informasi', [PublicationController::class, 'information'])->name('information');
-Route::post('/publikasi/informasi', [PublicationController::class, 'information'])->name('information');
+// Route::post('/publikasi/informasi', [PublicationController::class, 'information'])->name('storeInformation');
 Route::get('/publikasi/informasi/{slug}', [PublicationController::class, 'showInformation']);
 Route::get('/publikasi/galeri-foto', [PublicationController::class, 'photoGallery']);
 Route::get('/publikasi/galeri-foto/{slug}', [PublicationController::class, 'showPhotoGallery']);
@@ -47,8 +47,6 @@ Route::get('/regulasi/{slug}', [RegulationController::class, 'index']);
 
 // Service
 Route::get('/layanan-publik', [PublicServiceController::class, 'index']);
-// Route::get('/layanan-publik/bidang-perdagangan', [PublicServiceController::class, 'tradeSector']);
-// Route::get('/layanan-publik/bidang-pemberdayaan-koperasi-dan-usaha-mikro', [PublicServiceController::class, 'umkm']);
 Route::get('/layanan-publik/{slug}', [PublicServiceController::class, 'serviceDetail'])->name('service-detail');
 
 
