@@ -14,7 +14,7 @@ class PublicationSeeder extends Seeder
     {
         $this->call([
             PublicationTagSeeder::class,
-            PublicationDetailSeeder::class,
+            // PublicationDetailSeeder::class,
         ]);
     }
 }
