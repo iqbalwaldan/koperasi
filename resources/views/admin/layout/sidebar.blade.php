@@ -16,6 +16,31 @@
             <div class="sidebar-menu">
                 <ul class="menu">
                     @if (auth()->user()->getRoleNames()[0] == 'super-admin')
+                        <li class="sidebar-title">Berita</li>
+                        <li class="sidebar-item {{ $active == 'press-release' ? 'active' : '' }}">
+                            <a href="{{ route('admin.manage-press-release.index') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Siaran Pers</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item {{ $active == 'activity' ? 'active' : '' }}">
+                            <a href="{{ route('admin.manage-activity.index') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Kegiatan</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item {{ $active == 'gallery' ? 'active' : '' }}">
+                            <a href="{{ route('admin.manage-gallery.index') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Galeri</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item {{ $active == 'video' ? 'active' : '' }}">
+                            <a href="{{ route('admin.manage-video.index') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Video</span>
+                            </a>
+                        </li>
                         <li class="sidebar-title">Profil</li>
                         <li class="sidebar-item {{ $active == 'struktur-organisasi' ? 'active' : '' }}">
                             <a href="{{ route('admin.manage-profile.edit', ['slug' => 'struktur-organisasi']) }}"
@@ -42,31 +67,6 @@
                                 class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Regulasi, Tugas dan Fungsi</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-title">Berita</li>
-                        <li class="sidebar-item {{ $active == 'press-release' ? 'active' : '' }}">
-                            <a href="{{ route('admin.manage-press-release.index') }}" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Siaran Pers</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item {{ $active == 'activity' ? 'active' : '' }}">
-                            <a href="{{ route('admin.manage-activity.index') }}" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Kegiatan</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item {{ $active == 'gallery' ? 'active' : '' }}">
-                            <a href="{{ route('admin.manage-gallery.index') }}" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Galeri</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item {{ $active == 'video' ? 'active' : '' }}">
-                            <a href="{{ route('admin.manage-video.index') }}" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Video</span>
                             </a>
                         </li>
                         <li class="sidebar-title">File</li>
