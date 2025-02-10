@@ -4,7 +4,8 @@
             <figure class="topbar__logo">
                 <a href="/" class="d-flex">
                     {{-- <img src="{{ $logo_utama }}" alt="Logo Koperasi Indonesia"> --}}
-                    <img src="{{ asset('assets/img/Logo DISKOPUKMPERINDAG Kab. Sumenep.png') }}" alt="Logo Koperasi Indonesia">
+                    <img src="{{ asset('assets/img/Logo DISKOPUKMPERINDAG Kab. Sumenep.png') }}"
+                        alt="Logo Koperasi Indonesia">
                 </a>
             </figure>
             <div class="topbar__menu">
@@ -27,10 +28,14 @@
                                 <a class="dropdown-item" href="/profil/struktur-organisasi">Struktur Organisasi</a>
                             </li>
                             <li>
+                                <a class="dropdown-item" href="/profil/struktur-keanggotaan">Struktur Keanggotaan</a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item" href="/profil/visi-dan-misi">Visi dan Misi</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="/profil/regulasi-tugas-dan-fungsi">Regulasi, Tugas dan Fungsi</a>
+                                <a class="dropdown-item" href="/profil/regulasi-tugas-dan-fungsi">Regulasi, Tugas dan
+                                    Fungsi</a>
                             </li>
                         </ul>
                     </li>
