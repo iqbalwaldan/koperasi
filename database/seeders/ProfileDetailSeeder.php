@@ -35,10 +35,10 @@ class ProfileDetailSeeder extends Seeder
         foreach ($profileDetails as $profileDetail) {
             $profile = ProfileDetail::create($profileDetail);
 
-            if ($profileDetail['profile_tag_id'] === 1) {
-                $destinationPath = "thumb_struktur-organisasi.jpg";
-                $profile->addMediaFromUrl($profileDetail['description'])->usingName($profileDetail['title'])->usingFileName($destinationPath)->toMediaCollection('struktur-organisasi');
-            }
+            // if ($profileDetail['profile_tag_id'] === 1) {
+            //     $destinationPath = "thumb_struktur-organisasi.jpg";
+            //     $profile->addMediaFromUrl($profileDetail['description'])->usingName($profileDetail['title'])->usingFileName($destinationPath)->toMediaCollection('struktur-organisasi');
+            // }
         }
     }
 }

@@ -51,7 +51,7 @@
                                                 </div>
                                                 <div class="col-12">
                                                     <figure class="text-center overflow-hidden">
-                                                        <img src="{{ $data['image_url'] }}" alt="" width="800"
+                                                        <img src="{{ $data['image_url'] ?? '/'}}" alt="" width="800"
                                                             class="img-fluid img-cover rounded-3 border">
                                                     </figure>
                                                 </div>

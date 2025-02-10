@@ -33,7 +33,6 @@ Route::get('/profil/regulasi-tugas-dan-fungsi', [ProfileController::class, 'duti
 Route::get('/publikasi/siaran-pers', [PublicationController::class, 'pressRelease']);
 Route::get('/publikasi/siaran-pers/{slug}', [PublicationController::class, 'showPressRelease']);
 Route::get('/publikasi/informasi', [PublicationController::class, 'information'])->name('information');
-// Route::post('/publikasi/informasi', [PublicationController::class, 'information'])->name('storeInformation');
 Route::get('/publikasi/informasi/{slug}', [PublicationController::class, 'showInformation']);
 Route::get('/publikasi/galeri-foto', [PublicationController::class, 'photoGallery']);
 Route::get('/publikasi/galeri-foto/{slug}', [PublicationController::class, 'showPhotoGallery']);
@@ -117,21 +116,3 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });
 });
-
-
-
-// // News
-// Route::get('/siaran-pers', [NewsController::class, 'pressRelease']);
-// Route::get('/siaran-pers/{slug}', [NewsController::class, 'showPressRelease']);
-// Route::get('/berita-media', [NewsController::class, 'journalistUMKM']);
-// Route::get('/berita-media/{slug}', [NewsController::class, 'showJournalistUMKM']);
-
-// // Publication
-// Route::get('/laporan-keuangan', [PublicationController::class, 'financialReport']);
-// Route::get('/alamat-dinas', [PublicationController::class, 'officeAddress']);
-// Route::get('/publikasi/{slug}', [PublicationController::class, 'basicLaw']);
-
-// // Announcement
-// Route::get('/informasi-kios', [AnnouncementController::class, 'kioskInformation']);
-
-// // Tips Info
