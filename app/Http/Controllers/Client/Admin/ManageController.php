@@ -228,12 +228,6 @@ class ManageController extends Controller
         }
     }
 
-
-
-
-
-
-
     public function pressRelease()
     {
         $data = NewsDetail::with('newsTag')->where('news_tag_id', '1')->orderBy('date_news', 'DESC')->orderBy('created_at', 'DESC')->get()->map(function ($item) {
@@ -429,10 +423,10 @@ class ManageController extends Controller
             $news->addMediaFromRequest('image')->usingName('thumb_' . $slug)->usingFileName('thumb_' . $slug)->toMediaCollection('kegiatan');
 
             DB::commit();
-            return redirect()->route('admin.manage-activity.index')->with('success', 'Data siaran pers berhasil ditambahkan!');
+            return redirect()->route('admin.manage-activity.index')->with('success', 'Data kegiatan berhasil ditambahkan!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan data siaran pers!');
+            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan data kegiatan!');
         }
     }
 
@@ -521,7 +515,7 @@ class ManageController extends Controller
         }
 
         DB::commit();
-        return redirect()->route('admin.manage-activity.index')->with('success', 'Data siaran pers berhasil diperbarui!');
+        return redirect()->route('admin.manage-activity.index')->with('success', 'Data kegiatan berhasil diperbarui!');
     }
 
     public function activityDestroy($id)
