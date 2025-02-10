@@ -17,12 +17,12 @@
             <section class="section">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Data Berita</h4>
+                        <h4>Data Siaran Pers</h4>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end mb-3">
                             <a href="{{ route('admin.manage-press-release.create') }}" class="btn btn-success">
-                                Tambah Berita
+                                Tambah Siaran Pers
                             </a>
                         </div>
                         <table class="table table-striped" id="table1">
