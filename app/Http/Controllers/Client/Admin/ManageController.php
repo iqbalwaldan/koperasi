@@ -82,7 +82,7 @@ class ManageController extends Controller
         });
         return view('admin.manage-profile.member-structure.index', [
             'title' => 'Struktur Keanggotaan',
-            'active' => 'member-structure',
+            'active' => 'struktur-keanggotaan',
             'tag' => 'Keanggotaan',
             'members' => $members
         ]);
@@ -99,7 +99,7 @@ class ManageController extends Controller
 
         return view('admin.manage-profile.member-structure.create', [
             'title' => 'Struktur Keanggotaan',
-            'active' => 'member-structure',
+            'active' => 'struktur-keanggotaan',
             'tag' => 'Keanggotaan',
             'structures' => $memberTag
         ]);
@@ -156,7 +156,7 @@ class ManageController extends Controller
 
         return view('admin.manage-profile.member-structure.edit', [
             'title' => 'Edit Struktur Keanggotaan',
-            'active' => 'member-structure',
+            'active' => 'struktur-keanggotaan',
             'tag' => 'Keanggotaan',
             'data' => $data,
             'structures' => $memberTag
@@ -403,7 +403,7 @@ class ManageController extends Controller
                 'title' => 'required',
                 'date_news' => 'required',
                 'image' => 'image|mimes:jpeg,png,jpg|max:5120',
-                'attachment.*' => 'file|mimes:jpeg,png,jpg|max:5120',
+                'attachment.*' => 'file|mimes:pdf,doc,docx,jpeg,png,jpg|max:5120',
             ]);
 
             $slug = Str::slug($request->title) . '-' . time();
@@ -539,7 +539,7 @@ class ManageController extends Controller
         });
 
         return view('admin.manage-gallery.index', [
-            'title' => 'Manajemen Galeri',
+            'title' => 'Manajemen Galeri Foto',
             'active' => 'gallery',
             'data' => $gallery
         ]);
@@ -548,7 +548,7 @@ class ManageController extends Controller
     public function galleryCreate()
     {
         return view('admin.manage-gallery.create', [
-            'title' => 'Tambah Galeri',
+            'title' => 'Tambah Galeri Foto',
             'active' => 'gallery',
         ]);
     }
@@ -614,7 +614,7 @@ class ManageController extends Controller
         });
 
         return view('admin.manage-gallery.edit', [
-            'title' => 'Edit Galeri',
+            'title' => 'Edit Galeri Foto',
             'active' => 'gallery',
             'data' => $gellery
         ]);
@@ -720,7 +720,7 @@ class ManageController extends Controller
             $request->validate([
                 'name' => 'required',
                 'category' => 'required',
-                'file' => 'required|file|mimes:pdf|max:5120',
+                'file' => 'required|file|mimes:pdf,doc,docx|max:5120',
             ]);
 
             $file_name = Str::slug('file_' . $request->name) . '-' . time();
