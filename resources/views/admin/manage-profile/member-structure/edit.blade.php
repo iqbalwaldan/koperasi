@@ -63,7 +63,7 @@
                                                     <label for="photo" class="form-label">Foto
                                                         <br>
                                                         <span style="font-weight: lighter; font-size: 0.9rem">*format
-                                                            jpg,png,jpeg | max:3mb
+                                                            jpg,png,jpeg | max:5mb
                                                         </span>
                                                     </label>
                                                     <input class="form-control" type="file" id="photo"

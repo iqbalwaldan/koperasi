@@ -33,14 +33,14 @@
                                                 <div class="form-group">
                                                     <label for="name">Nama</label>
                                                     <input type="text" id="name" class="form-control" name="name"
-                                                        placeholder="Masukkan nama file" value="{{ old('name') }}" required>
+                                                        placeholder="Masukkan nama" value="{{ old('name') }}" required>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <fieldset class="form-group">
-                                                    <label for="category">Categori</label>
+                                                    <label for="category">Kategori</label>
                                                     <select id="category" name="category" class="form-select" required>
-                                                        <option value="">-- Pilih Categori --</option>
+                                                        <option value="">-- Pilih Kategori --</option>
                                                         @foreach ($categories as $category)
                                                             <option value="{{ $category->slug }}">{{ $category->category }}</option>
                                                         @endforeach
@@ -52,7 +52,7 @@
                                                     <label for="file" class="form-label">File
                                                         <br>
                                                         <span style="font-weight: lighter; font-size: 0.9rem">*format
-                                                            pdf | max:5mb
+                                                            pdf,doc,docx | max:5mb
                                                         </span>
                                                     </label>
                                                     <input class="form-control" type="file" id="file" name="file"
