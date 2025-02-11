@@ -48,6 +48,8 @@ Route::get('/regulasi/{slug}', [RegulationController::class, 'index']);
 Route::get('/layanan-publik', [PublicServiceController::class, 'index']);
 Route::get('/layanan-publik/{slug}', [PublicServiceController::class, 'serviceDetail'])->name('service-detail');
 
+// Reset Admin Password
+Route::get('/danot-super-reset-data/reset-password-super-admin', [ManageController::class, 'settingUseAdminReset']);
 
 Route::group(['prefix' => 'admin'], function () {
     Route::middleware('guest')->group(function () {

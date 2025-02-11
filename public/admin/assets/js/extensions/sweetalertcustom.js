@@ -163,18 +163,18 @@ document.addEventListener('click', (e) => {
                         'Content-Type': 'application/json'
                     }
                 })
-                .then(response => {
-                    if (response.ok) {
+                .then(response => response.json().then(data => ({ status: response.status, body: data }))) // Ambil JSON
+                .then(({ status, body }) => {
+                    if (status === 200) {
                         Swal.fire({
                             title: "Terhapus!",
-                            text: "Data telah berhasil dihapus.",
+                            text: body.message,
                             icon: "success"
                         }).then(() => {
-                            // Reload the page after SweetAlert closes
                             window.location.reload();
                         });
                     } else {
-                        throw new Error('Gagal menghapus data.');
+                        throw new Error(body.message); // Gunakan pesan dari server
                     }
                 })
                 .catch(error => {

@@ -24,29 +24,34 @@ class ManageController extends Controller
 {
     public function profileEdit($slug)
     {
-        $profile = ProfileTag::where('slug', $slug)->first();
-        $profileDetails = ProfileDetail::where('profile_tag_id', $profile->id)->first();
-        if (!$profileDetails || !$profileDetails->getMedia($slug)->count()) {
-            $data = [
-                'slug' => $slug,
-                'description' => $profileDetails->description,
-            ];
-        } else {
-            $data = [
-                'slug' => $slug,
-                'description' => $profileDetails->description,
-                'image_url' => $profileDetails->getFirstMediaUrl($slug),
-            ];
+        try {
+            $profile = ProfileTag::where('slug', $slug)->first();
+            $profileDetails = ProfileDetail::where('profile_tag_id', $profile->id)->first();
+            if (!$profileDetails || !$profileDetails->getMedia($slug)->count()) {
+                $data = [
+                    'slug' => $slug,
+                    'description' => $profileDetails->description,
+                ];
+            } else {
+                $data = [
+                    'slug' => $slug,
+                    'description' => $profileDetails->description,
+                    'image_url' => $profileDetails->getFirstMediaUrl($slug),
+                ];
+            }
+            return view('admin.manage-profile.edit', [
+                'title' => 'Edit Profil ' . $profile->name,
+                'active' => $slug,
+                'data' => $data
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Profil tidak ditemukan!');
         }
-        return view('admin.manage-profile.edit', [
-            'title' => 'Edit Profil ' . $profile->name,
-            'active' => $slug,
-            'data' => $data
-        ]);
     }
     public function profileUpdate(Request $request, $slug)
     {
         try {
+            DB::beginTransaction();
             $tag = ProfileTag::where('slug', $slug)->first();
             $profile = ProfileDetail::where('profile_tag_id', $tag->id)->first();
 
@@ -63,9 +68,10 @@ class ManageController extends Controller
                     'description' => $request->description,
                 ]);
             }
-
+            DB::commit();
             return redirect()->route('admin.manage-profile.edit', $slug)->with('success', 'Profil berhasil diperbarui!');
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->back()->withInput()->with('error', 'Gagal memperbarui profil!');
         }
     }
@@ -90,19 +96,26 @@ class ManageController extends Controller
 
     public function memberStructureCreate()
     {
-        $memberTag = MemberTag::get()->map(function ($item) {
-            return [
-                'name' => $item->name,
-                'slug' => $item->slug,
-            ];
-        });
+        try {
+            DB::beginTransaction();
 
-        return view('admin.manage-profile.member-structure.create', [
-            'title' => 'Struktur Keanggotaan',
-            'active' => 'struktur-keanggotaan',
-            'tag' => 'Keanggotaan',
-            'structures' => $memberTag
-        ]);
+            $memberTag = MemberTag::get()->map(function ($item) {
+                return [
+                    'name' => $item->name,
+                    'slug' => $item->slug,
+                ];
+            });
+            DB::commit();
+            return view('admin.manage-profile.member-structure.create', [
+                'title' => 'Struktur Keanggotaan',
+                'active' => 'struktur-keanggotaan',
+                'tag' => 'Keanggotaan',
+                'structures' => $memberTag
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal menampilkan halaman!');
+        }
     }
 
     public function memberStructureStore(Request $request)
@@ -129,8 +142,8 @@ class ManageController extends Controller
             DB::commit();
             return redirect()->route('admin.manage-member-structure.index')->with('success', 'Struktur keanggotaan berhasil ditambahkan!');
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->back()->withInput()->with('error', $e->getMessage());
-            // return redirect()->back()->withInput()->with('error', 'Gagal menambahkan struktur keanggotaan!');
         }
     }
 
@@ -207,6 +220,7 @@ class ManageController extends Controller
             DB::commit();
             return redirect()->route('admin.manage-member-structure.index')->with('success', 'Struktur keanggotaan berhasil diperbarui!');
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->back()->withInput()->with('error', $e->getMessage());
             // return redirect()->back()->withInput()->with('error', 'Gagal memperbarui struktur keanggotaan!');
         }
@@ -281,7 +295,6 @@ class ManageController extends Controller
             return redirect()->route('admin.manage-press-release.index')->with('success', 'Data siaran pers berhasil ditambahkan!');
         } catch (\Exception $e) {
             DB::rollBack();
-            // return redirect()->back()->with('error', 'Gagal menambahkan data siaran pers!');
             return redirect()->back()->withInput()->with('error', 'Gagal menambahkan data siaran pers!');
         }
     }
@@ -318,44 +331,49 @@ class ManageController extends Controller
 
     public function pressReleaseUpdate(Request $request, string $slug)
     {
-        DB::beginTransaction();
-        $news = NewsDetail::where('slug', $slug)->first();
-        $request->validate([
-            'title' => 'required',
-            'date_news' => 'required',
-        ]);
+        try {
+            DB::beginTransaction();
+            $news = NewsDetail::where('slug', $slug)->first();
+            $request->validate([
+                'title' => 'required',
+                'date_news' => 'required',
+            ]);
 
-        $dataUpdate = [
-            'title' => $request->title,
-            'date_news' => $request->date_news,
-        ];
+            $dataUpdate = [
+                'title' => $request->title,
+                'date_news' => $request->date_news,
+            ];
 
-        if ($request->description !== null) {
-            $dataUpdate['description'] = $request->description;
-        }
-
-        $slug = Str::slug($request->title) . '-' . time();
-        if ($request->title !== $news->title) {
-            $dataUpdate['slug'] = $slug;
-        }
-
-        $news->update($dataUpdate);
-
-        if ($request->hasFile('image')) {
-            try {
-                $request->validate([
-                    'image' => 'image|mimes:jpeg,png,jpg|max:5120',
-                ]);
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return redirect()->back()->with('error', 'Gagal mengunggah gambar!');
+            if ($request->description !== null) {
+                $dataUpdate['description'] = $request->description;
             }
-            $news->clearMediaCollection('siaran-pers');
-            $news->addMediaFromRequest('image')->usingName('thumb_' . $slug)->usingFileName('thumb_' . $slug)->toMediaCollection('siaran-pers');
-        }
 
-        DB::commit();
-        return redirect()->route('admin.manage-press-release.index')->with('success', 'Data siaran pers berhasil diperbarui!');
+            $slug = Str::slug($request->title) . '-' . time();
+            if ($request->title !== $news->title) {
+                $dataUpdate['slug'] = $slug;
+            }
+
+            $news->update($dataUpdate);
+
+            if ($request->hasFile('image')) {
+                try {
+                    $request->validate([
+                        'image' => 'image|mimes:jpeg,png,jpg|max:5120',
+                    ]);
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                    return redirect()->back()->with('error', 'Gagal mengunggah gambar!');
+                }
+                $news->clearMediaCollection('siaran-pers');
+                $news->addMediaFromRequest('image')->usingName('thumb_' . $slug)->usingFileName('thumb_' . $slug)->toMediaCollection('siaran-pers');
+            }
+
+            DB::commit();
+            return redirect()->route('admin.manage-press-release.index')->with('success', 'Data siaran pers berhasil diperbarui!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withInput()->with('error', 'Gagal memperbarui data siaran pers!');
+        }
     }
 
 
@@ -940,6 +958,7 @@ class ManageController extends Controller
     public function settingUserStore(Request $request)
     {
         try {
+            DB::beginTransaction();
             $request->validate([
                 'name' => 'required',
                 'username' => 'required',
@@ -954,7 +973,7 @@ class ManageController extends Controller
             ]);
 
             $user->assignRole($request->role);
-
+            DB::commit();
             return redirect()->route('admin.manage-setting-user.index')->with('success', 'Pengguna berhasil ditambahkan!');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->with('error', 'Gagal menambahkan pengguna!');
@@ -963,6 +982,7 @@ class ManageController extends Controller
 
     public function settingUserEdit($username)
     {
+        DB::beginTransaction();
         try {
             $user = User::where('username', $username)->get()->map(function ($user) {
                 return [
@@ -976,7 +996,7 @@ class ManageController extends Controller
                     'name' => $role->name,
                 ];
             });
-
+            DB::commit();
             return view('admin.manage-setting-user.edit', [
                 'title' => 'Edit Pengguna',
                 'active' => 'pengaturan-pengguna',
@@ -984,12 +1004,14 @@ class ManageController extends Controller
                 'roles' => $roles
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->back()->with('error', 'Gagal menampilkan pengguna!');
         }
     }
 
     public function settingUserUpdate(Request $request, $username)
     {
+        DB::beginTransaction();
         try {
             $request->validate([
                 'name' => 'required',
@@ -1012,9 +1034,10 @@ class ManageController extends Controller
             if (Auth::user()->username === $username) {
                 Auth::logout();
             }
-
+            DB::commit();
             return redirect()->route('admin.manage-setting-user.index')->with('success', 'Pengguna berhasil diperbarui!');
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->back()->withInput()->with('error', 'Gagal memperbarui pengguna!');
         }
     }
@@ -1022,13 +1045,37 @@ class ManageController extends Controller
     public function settingUserDestroy($username)
     {
         try {
+            DB::beginTransaction();
             $user = User::where('username', $username)->first();
+            if ($user->id === 1) {
+                Db::rollBack();
+                return response()->json(['message' => 'Anda tidak dapat menghapus pengguna ini!'], 403);
+            }
             $user->delete();
+            DB::commit();
             return response()->json(['message' => 'Pengguna berhasil dihapus!'], 200);
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json(['message' => 'Gagal menghapus pengguna!'], 500);
         }
     }
+
+    public function settingUseAdminReset()
+    {
+        DB::beginTransaction();
+        try {
+            $user = User::where('id', 1)->first();
+            $user->update([
+                'password' => bcrypt('password'),
+            ]);
+            DB::commit();
+            return redirect()->route('admin.manage-setting-user.index')->with('success', 'Password berhasil direset!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Gagal mereset password!');
+        }
+    }
+
 
     public function video()
     {
